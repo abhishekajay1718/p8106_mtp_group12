@@ -47,7 +47,7 @@ day %>%
 ```{r}
 x_1 = 
   day %>% 
-  select(-c(casual, registered, cnt))
+  select(-c(dteday, casual, registered, cnt))
 
 x_1 = model.matrix(~., x_1)
 y = day[,c(11)]
