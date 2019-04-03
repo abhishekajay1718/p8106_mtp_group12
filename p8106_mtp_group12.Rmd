@@ -9,6 +9,11 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
+library(ISLR)
+library(glmnet)
+library(caret)
+library(corrplot)
+library(plotmo)
 ```
 
 ```{r}
@@ -16,12 +21,22 @@ library(readr)
 
 day = read.csv("day.csv")
 head(day)
+
+x = day %>% 
+  select(-dteday) 
+x = model.matrix(casual+registered+ cnt~., x)
+corrplot(cor(x))
 ```
 
 ```{r}
 
 day %>% 
   janitor::clean_names() %>% 
-  mutate(season = as.factor(season), yr = as.factor(yr), mnth = as.factor(mnth), holiday = as.factor(holiday), weekday = as.factor(weekday), workingday = as.factor(workingday),)
+  mutate(season = as.factor(season), yr = as.factor(yr), mnth = as.factor(mnth), holiday = as.factor(holiday), weekday = as.factor(weekday), workingday = as.factor(workingday))
+```
+
+```{r}
+
+
 ```
 
