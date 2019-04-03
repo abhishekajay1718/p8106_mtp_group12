@@ -28,15 +28,32 @@ x = model.matrix(casual+registered+ cnt~., x)
 corrplot(cor(x))
 ```
 
-```{r}
+According to the above correlation plot, we decided to drop-- instant and intercept.
 
+```{r}
 day %>% 
   janitor::clean_names() %>% 
-  mutate(season = as.factor(season), yr = as.factor(yr), mnth = as.factor(mnth), holiday = as.factor(holiday), weekday = as.factor(weekday), workingday = as.factor(workingday))
+  mutate(season = as.factor(season), 
+         yr = as.factor(yr), 
+         mnth = as.factor(mnth), 
+         holiday = as.factor(holiday), 
+         weekday = as.factor(weekday), 
+         workingday = as.factor(workingday),
+         dteday = as.vector(dteday)
+         ) %>% 
+  select(-c(instant))
 ```
 
 ```{r}
+x_1 = 
+  day %>% 
+  select(-c(casual, registered, cnt))
 
+x_1 = model.matrix(~., x_1)
+y = day[,c(11)]
+ridge.mod <-glmnet(x_1, y, alpha=0, lambda =exp(seq(-1, 10, length=100)))
+ridge.mod$lambda
 
+coef(ridge.mod)
 ```
 
