@@ -31,7 +31,7 @@ corrplot(cor(x))
 According to the above correlation plot, we decided to drop-- instant and intercept.
 
 ```{r}
-day %>% 
+day = day %>% 
   janitor::clean_names() %>% 
   mutate(season = as.factor(season), 
          yr = as.factor(yr), 
@@ -54,9 +54,22 @@ y = day[,c(11)]
 ridge.mod <-glmnet(x_1, y, alpha=0, lambda =exp(seq(-1, 10, length=100)))
 ridge.mod$lambda
 
-coef(ridge.mod)
+dim(coef(ridge.mod))
+
 ```
 
 we dropped the dteday because it does is a factor variable with too many levels and it basically is the same as the index which does not tells us anything in this test. 
 
+
+```{r}
+set.seed(2)
+cv.ridge <-cv.glmnet(x_1, y,alpha = 0,lambda =exp(seq(-1, 10, length=100)),type.measure = "mse")
+plot(cv.ridge)
+
+plot_glmnet(ridge.mod, xvar = "rlambda")
+
+best.lambda = cv.ridge$lambda.min
+best.lambda
+predict(ridge.mod, s = best.lambda, type="coefficients")
+```
 
