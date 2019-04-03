@@ -57,3 +57,6 @@ ridge.mod$lambda
 coef(ridge.mod)
 ```
 
+we dropped the dteday because it does is a factor variable with too many levels and it basically is the same as the index which does not tells us anything in this test. 
+
+
