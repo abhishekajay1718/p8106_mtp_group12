@@ -41,16 +41,16 @@ day = day %>%
          workingday = as.factor(workingday),
          dteday = as.vector(dteday)
          ) %>% 
-  select(-c(instant))
+  select(-c(instant,dteday))
 ```
 
 ```{r}
 x_1 = 
   day %>% 
-  select(-c(dteday, casual, registered, cnt))
+  select(-c( casual, registered, cnt))
 
 x_1 = model.matrix(~., x_1)
-y = day[,c(11)]
+y = day$cnt
 ridge.mod <-glmnet(x_1, y, alpha=0, lambda =exp(seq(-1, 10, length=100)))
 ridge.mod$lambda
 
@@ -71,5 +71,14 @@ plot_glmnet(ridge.mod, xvar = "rlambda")
 best.lambda = cv.ridge$lambda.min
 best.lambda
 predict(ridge.mod, s = best.lambda, type="coefficients")
+```
+
+
+```{r}
+
+cv.lasso <-cv.glmnet(x_1, y,alpha = 1,lambda =exp(seq(-1, 10, length=100)),type.measure = "mse")
+cv.lasso$lambda.min
+plot(cv.lasso)
+
 ```
 
