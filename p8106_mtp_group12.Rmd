@@ -14,6 +14,10 @@ library(glmnet)
 library(caret)
 library(corrplot)
 library(plotmo)
+library(splines)
+library(lasso2)
+library(ggplot2)
+library(mgcv)
 ```
 
 ```{r}
@@ -60,6 +64,8 @@ dim(coef(ridge.mod))
 
 we dropped the dteday because it does is a factor variable with too many levels and it basically is the same as the index which does not tells us anything in this test. 
 
+x_1: all independent variables
+y: cnt---the response
 
 ```{r}
 set.seed(2)
@@ -79,6 +85,113 @@ predict(ridge.mod, s = best.lambda, type="coefficients")
 cv.lasso <-cv.glmnet(x_1, y,alpha = 1,lambda =exp(seq(-1, 10, length=100)),type.measure = "mse")
 cv.lasso$lambda.min
 plot(cv.lasso)
+
+plot_glmnet(cv.lasso$glmnet.fit)
+
+predict(cv.lasso, s="lambda.min", type="coefficients")
+```
+
+? why is that lasso best lambda is 1 ?
+
+
+```{r}
+theme1 <-trellis.par.get()
+theme1$plot.symbol$col <-rgb(.2, .4, .2, .5)
+theme1$plot.symbol$pch <- 16
+theme1$plot.line$col <-rgb(.8, .1, .1, 1)
+theme1$plot.line$lwd <- 2
+theme1$strip.background$col <-rgb(.0, .2, .6, .2)
+trellis.par.set(theme1)
+featurePlot(x_1, y, plot = "scatter", labels =c("","Y"),type =c("p"), layout =c(4, 2))
+```
+
+actually this is pretty enough and straight forward to see some trends of these variables toward the bike usage. 
+
+
+
+
+
+smooth splines for temp
+
+```{r}
+fit.ss <-smooth.spline(day$temp, day$cnt)
+fit.ss$df
+
+templims <-range(day$temp)
+temp.grid <-seq(from = templims[1],to = templims[2], by = 0.0001)
+length(temp.grid)
+
+pred.ss <-predict(fit.ss,
+                  x = temp.grid)
+
+
+pred.ss.df <-data.frame(pred = pred.ss$y,
+                        temp = temp.grid)
+
+p <-ggplot(data = day,aes(x = temp, y = cnt))+
+  geom_point(color =rgb(.2, .4, .2, .5))
+
+p+geom_line(aes(x = temp, y = pred), data = pred.ss.df,color =rgb(.8, .1, .1, 1))+ theme_bw()
+
+
+
+```
+
+humidity
+
+```{r}
+fit.ss <-smooth.spline(day$hum, day$cnt)
+fit.ss$df
+
+humlims <-range(day$hum)
+hum.grid <-seq(from = humlims[1],to = humlims[2], by = 0.001)
+length(hum.grid)
+
+pred.ss <-predict(fit.ss,
+                  x = hum.grid)
+
+
+pred.ss.df <-data.frame(pred = pred.ss$y,
+                        hum = hum.grid)
+
+p <-ggplot(data = day,aes(x = hum, y = cnt))+
+  geom_point(color =rgb(.2, .4, .2, .5))
+
+p+geom_line(aes(x = hum, y = pred), data = pred.ss.df,color =rgb(.8, .1, .1, 1))+ theme_bw()
+```
+
+pretty persuasive, since 0.5-0.75 is the best comfortable humidity
+
+
+
+windspeed
+
+```{r}
+fit.ss <-smooth.spline(day$windspeed, day$cnt)
+fit.ss$df
+
+windspeedlims <-range(day$windspeed)
+windspeed.grid <-seq(from = windspeedlims[1],to = windspeedlims[2], by = 0.001)
+length(windspeed.grid)
+
+pred.ss <-predict(fit.ss,
+                  x = windspeed.grid)
+
+
+pred.ss.df <-data.frame(pred = pred.ss$y,
+                        windspeed = windspeed.grid)
+
+p <-ggplot(data = day,aes(x = windspeed, y = cnt))+
+  geom_point(color =rgb(.2, .4, .2, .5))
+
+p+geom_line(aes(x = windspeed, y = pred), data = pred.ss.df,color =rgb(.8, .1, .1, 1))+ theme_bw()
+```
+
+windspeed ^  --  cnt V
+
+
+GAM
+```{r}
 
 ```
 
