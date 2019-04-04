@@ -201,6 +201,7 @@ gam.m4 = gam(cnt~ season + yr + mnth + holiday + weekday + workingday + weathers
 gam.m5 = gam(cnt~ season + yr + mnth + holiday + weekday + workingday + weathersit + temp + atemp + hum + s(windspeed), data = day) # s:windspeed
 
 anova(gam.m1, gam.m2, test = "F")
+anova(gam.m1, gam.m3, test = "F")
 
 par(mfrow=c(2,2))
 plot(gam.m2)
@@ -209,3 +210,4 @@ plot(gam.m4)
 plot(gam.m5)
 ```
 
+?The deviance is pretty huge of those ANOVA?
