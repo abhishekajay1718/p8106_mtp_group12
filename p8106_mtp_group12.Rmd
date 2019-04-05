@@ -23,10 +23,10 @@ library(readr)
 
 ##Introduction
 
-Describe your data set. Provide proper motivation for your work.
+**Describe your data set. Provide proper motivation for your work.**
 
 What questions are you trying to answer?
-How did you prepare and clean the data?
+
 
 The following dataset has been obtained from the UCI Machine Learning Rpository. We are using the dataset that contains daily counts of bike rentals by both registered and casual members from the Capital Bikeshare System during the years 2011 and 2012. This dataset also contains weather data for each that's been extracted from the www.freemeteo.com while it uses the dc.gov page to extract information about the binary holiday column. 
 
@@ -46,6 +46,7 @@ x = model.matrix(casual+registered+ cnt~., x)
 corrplot(cor(x))
 ```
 
+**How did you prepare and clean the data?**
 
 According to the above correlation plot, we decided to drop-- instant and intercept.
 
@@ -58,9 +59,8 @@ day = day %>%
          holiday = as.factor(holiday), 
          weekday = as.factor(weekday), 
          workingday = as.factor(workingday),
-         dteday = as.vector(dteday)
-         ) %>% 
-  select(-c(instant,dteday))
+         #dteday = as.vector(dteday)
+         ) 
 ```
 
 ```{r}
