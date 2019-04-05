@@ -19,6 +19,8 @@ library(lasso2)
 library(ggplot2)
 library(mgcv)
 library(readr)
+library(pdp)
+library(earth)
 ```
 
 ##Introduction
@@ -224,6 +226,28 @@ plot(gam.m3)
 plot(gam.m4)
 plot(gam.m5)
 
+#deleting the yr and mnth variables
+
+gam.m1 = gam(cnt~ season +  holiday + weekday + workingday + weathersit + temp + atemp + hum + windspeed, data = day)
+
+
+gam.m2 = gam(cnt~ season +  holiday + weekday + workingday + weathersit + s(temp) + atemp + hum + windspeed, data = day) # s:temp
+gam.m3 = gam(cnt~ season +  holiday + weekday + workingday + weathersit + temp + s(atemp) + hum + windspeed, data = day) # s:atemp
+gam.m4 = gam(cnt~ season +  holiday + weekday + workingday + weathersit + temp + atemp + s(hum) + windspeed, data = day) # s:hum
+gam.m5 = gam(cnt~ season +  holiday + weekday + workingday + weathersit + temp + atemp + hum + s(windspeed), data = day) # s:windspeed
+
+anova(gam.m1, gam.m2, test = "F")
+anova(gam.m1, gam.m3, test = "F")
+
+par(mfrow=c(2,2))
+plot(gam.m2)
+plot(gam.m3)
+plot(gam.m4)
+plot(gam.m5)
+
+```
+
+```{r}
 #GCV to select df
 
 ctrl1 <-trainControl(method = "cv", number = 10)
@@ -233,6 +257,19 @@ gam.fit <-train(x_1, y,method = "gam",tuneGrid =data.frame(method = "GCV.Cp", se
 gam.fit$bestTune
 gam.fit$finalModel
 
+x_2 = 
+  day %>% 
+  select(-c( casual, registered, cnt, yr, mnth))
+
+x_2 = model.matrix(~., x_2)
+
+
+
+set.seed(3)
+gam.fit2 <-train(x_2, y,method = "gam",tuneGrid =data.frame(method = "GCV.Cp", select =c(TRUE,FALSE)),trControl = ctrl1)
+
+gam.fit2$bestTune
+gam.fit2$finalModel
 ```
 
 ?The deviance is pretty huge of those ANOVA?
@@ -251,4 +288,17 @@ summary(day.glm1)
 
 ```
 
+
+```{r}
+#mars
+mars_grid <-expand.grid(degree = 1:2,nprune = 2:10)
+set.seed(2)
+mars.fit <-train(x_1, y,method = "earth",tuneGrid = mars_grid,trControl = ctrl1)
+ggplot(mars.fit)
+mars.fit$bestTune
+
+
+coef(mars.fit$finalModel)
+bwplot(resamples(list(mars = mars.fit,gam = gam.fit)), metric = "RMSE")
+```
 
