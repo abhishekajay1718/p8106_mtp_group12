@@ -257,14 +257,19 @@ gam.fit <-train(x_1, y,method = "gam",tuneGrid =data.frame(method = "GCV.Cp", se
 gam.fit$bestTune
 gam.fit$finalModel
 
-#x_2 = day %>% 
- # select(season, weekday, holiday, workingday, weathersit, temp, atemp, hum, windspeed)
-#x_2 = model.matrix(~., x_2)
-#gam.fit <-train(x_2, y,method = "gam",tuneGrid =data.frame(method = "GCV.Cp", select =c(TRUE,FALSE)),trControl = ctrl1)
+x_2 = 
+  day %>% 
+  select(-c( casual, registered, cnt, yr, mnth))
 
-#gam.fit$bestTune
-#gam.fit$finalModel
-# MSE is too large
+x_2 = model.matrix(~., x_2)
+
+
+
+set.seed(3)
+gam.fit2 <-train(x_2, y,method = "gam",tuneGrid =data.frame(method = "GCV.Cp", select =c(TRUE,FALSE)),trControl = ctrl1)
+
+gam.fit2$bestTune
+gam.fit2$finalModel
 ```
 
 ?The deviance is pretty huge of those ANOVA?
