@@ -223,6 +223,32 @@ plot(gam.m2)
 plot(gam.m3)
 plot(gam.m4)
 plot(gam.m5)
+
+#GCV to select df
+
+ctrl1 <-trainControl(method = "cv", number = 10)
+set.seed(2)
+gam.fit <-train(x_1, y,method = "gam",tuneGrid =data.frame(method = "GCV.Cp", select =c(TRUE,FALSE)),trControl = ctrl1)
+
+gam.fit$bestTune
+gam.fit$finalModel
+
 ```
 
 ?The deviance is pretty huge of those ANOVA?
+
+GCV score is too large. 
+
+```{r}
+#poisson regression for categorical terms, exclude yr and mnth
+
+
+day.glm1 <- glm(cnt~season + holiday + weekday + workingday + weathersit, family=poisson, data=day)
+summary(day.glm1)
+
+
+
+
+```
+
+
