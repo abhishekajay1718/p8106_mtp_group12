@@ -19,6 +19,8 @@ library(lasso2)
 library(ggplot2)
 library(mgcv)
 library(readr)
+library(pdp)
+library(earth)
 ```
 
 ##Introduction
@@ -227,6 +229,14 @@ gam.fit <-train(x_1, y,method = "gam",tuneGrid =data.frame(method = "GCV.Cp", se
 gam.fit$bestTune
 gam.fit$finalModel
 
+#x_2 = day %>% 
+ # select(season, weekday, holiday, workingday, weathersit, temp, atemp, hum, windspeed)
+#x_2 = model.matrix(~., x_2)
+#gam.fit <-train(x_2, y,method = "gam",tuneGrid =data.frame(method = "GCV.Cp", select =c(TRUE,FALSE)),trControl = ctrl1)
+
+#gam.fit$bestTune
+#gam.fit$finalModel
+# MSE is too large
 ```
 
 ?The deviance is pretty huge of those ANOVA?
@@ -245,4 +255,17 @@ summary(day.glm1)
 
 ```
 
+
+```{r}
+#mars
+mars_grid <-expand.grid(degree = 1:2,nprune = 2:10)
+set.seed(2)
+mars.fit <-train(x_1, y,method = "earth",tuneGrid = mars_grid,trControl = ctrl1)
+ggplot(mars.fit)
+mars.fit$bestTune
+
+
+coef(mars.fit$finalModel)
+bwplot(resamples(list(mars = mars.fit,gam = gam.fit)), metric = "RMSE")
+```
 
