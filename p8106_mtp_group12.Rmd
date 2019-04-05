@@ -28,7 +28,13 @@ Describe your data set. Provide proper motivation for your work.
 What questions are you trying to answer?
 How did you prepare and clean the data?
 
-The following dataset has been obtained from the UCI Machine Learning Rpository. 
+The following dataset has been obtained from the UCI Machine Learning Rpository. We are using the dataset that contains daily counts of bike rentals by both registered and casual members from the Capital Bikeshare System during the years 2011 and 2012. This dataset also contains weather data for each that's been extracted from the www.freemeteo.com while it uses the dc.gov page to extract information about the binary holiday column. 
+
+Capital Bikeshare has over 350 stations in Washington, D.C., Alington, VA and MD, etc. 
+
+We are trying to use this dataset to see if temperature, weather and type of day (working day, weekend or a holiday) have any effect on the amount of bike rentals on any given day. Simply put, we're trying to forecast bike rentals on any day. This can have a ton of implications in traffic management. Forecasting the amount of bikes on the road can give a better sense of travel time and allowing taxi services to provide more accurate "estimated time of arrival" estimates. 
+
+
 ```{r}
 day = read.csv("./data/day.csv")
 day_1 = read_csv("./data/bike_2015_q1.csv")
