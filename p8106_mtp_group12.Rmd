@@ -18,19 +18,28 @@ library(splines)
 library(lasso2)
 library(ggplot2)
 library(mgcv)
+library(readr)
 ```
 
-```{r}
-library(readr)
+##Introduction
 
-day = read.csv("day.csv")
-head(day)
+Describe your data set. Provide proper motivation for your work.
+
+What questions are you trying to answer?
+How did you prepare and clean the data?
+
+
+```{r}
+day = read.csv("./data/day.csv")
+day_1 = read_csv("./data/bike_2015_q1.csv")
+#head(day)
 
 x = day %>% 
-  select(-dteday) 
+  select(-c(dteday, instant)) 
 x = model.matrix(casual+registered+ cnt~., x)
 corrplot(cor(x))
 ```
+
 
 According to the above correlation plot, we decided to drop-- instant and intercept.
 
