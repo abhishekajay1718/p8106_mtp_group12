@@ -28,7 +28,7 @@ Describe your data set. Provide proper motivation for your work.
 What questions are you trying to answer?
 How did you prepare and clean the data?
 
-
+The following dataset has been obtained from the UCI Machine Learning Rpository. 
 ```{r}
 day = read.csv("./data/day.csv")
 day_1 = read_csv("./data/bike_2015_q1.csv")
