@@ -39,12 +39,10 @@ We are trying to use this dataset to see if temperature, weather and type of day
 
 ```{r}
 day = read.csv("./data/day.csv")
-day_1 = read_csv("./data/bike_2015_q1.csv")
-#head(day)
 
 x = day %>% 
   select(-c(dteday, instant)) 
-x = model.matrix(casual+registered+ cnt~., x)
+x = model.matrix(casual + registered + cnt~., x)[,-1]
 corrplot(cor(x))
 ```
 
@@ -60,7 +58,7 @@ day = day %>%
          mnth = as.factor(mnth), 
          holiday = as.factor(holiday), 
          weekday = as.factor(weekday), 
-         workingday = as.factor(workingday),
+         workingday = as.factor(workingday)
          #dteday = as.vector(dteday)
          ) 
 ```
@@ -75,8 +73,7 @@ y = day$cnt
 ridge.mod <-glmnet(x_1, y, alpha=0, lambda =exp(seq(-1, 10, length=100)))
 ridge.mod$lambda
 
-dim(coef(ridge.mod))
-
+coef(ridge.mod)
 ```
 
 we dropped the dteday because it does is a factor variable with too many levels and it basically is the same as the index which does not tells us anything in this test. 
@@ -98,7 +95,6 @@ predict(ridge.mod, s = best.lambda, type="coefficients")
 
 
 ```{r}
-
 cv.lasso <-cv.glmnet(x_1, y,alpha = 1,lambda =exp(seq(-1, 10, length=100)),type.measure = "mse")
 cv.lasso$lambda.min
 plot(cv.lasso)
