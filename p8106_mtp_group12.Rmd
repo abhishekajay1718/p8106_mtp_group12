@@ -55,6 +55,7 @@ day = read.csv("./data/day.csv") %>%
 x = day  
 x = model.matrix(casual + registered + cnt~., x)[,-1]
 y = day$cnt
+y_n = 0.01*(day$cnt)
 corrplot(cor(x))
 a = day %>% 
   select(-c(yr, mnth, weekday))
@@ -72,7 +73,9 @@ summary(model_lm)
 ctrl1 <-trainControl(method = "cv", number = 10)
 set.seed(1)
 lmFit <-train(cnt~ season +   holiday  + workingday + weathersit + temp + atemp + hum + windspeed,data = day,method = "lm",trControl = ctrl1)
-lmFit
+lm.mse = (lmFit$results[,2])^2
+lmFit2 <-train(0.01*cnt~ season +   holiday  + workingday + weathersit + temp + atemp + hum + windspeed,data = day,method = "lm",trControl = ctrl1)
+lm.mse2 = (lmFit2$results[,2])^2
 ```
 
 
@@ -250,7 +253,10 @@ set.seed(3)
 gam.fit2 <-train(x_2, y,method = "gam",tuneGrid =data.frame(method = "GCV.Cp", select =c(TRUE,FALSE)),trControl = ctrl1)
 
 gam.fit2$bestTune
-gam.fit2$finalModel
+gam.mse = gam.fit2$finalModel$gcv.ubre
+
+gam.fit3 <-train(x_2, y_n,method = "gam",tuneGrid =data.frame(method = "GCV.Cp", select =c(TRUE,FALSE)),trControl = ctrl1)
+gam.mse2 = gam.fit3$finalModel$gcv.ubre
 ```
 
 ?The deviance is pretty huge of those ANOVA?
@@ -285,10 +291,13 @@ mars.fit <-train(x_n, y,method = "earth",tuneGrid = mars_grid,trControl = ctrl1)
 
 ggplot(mars.fit)
 mars.fit$bestTune
-
+mars.mse = mars.fit$finalModel$gcv
 summary(mars.fit)
 coef(mars.fit$finalModel)
 bwplot(resamples(list(mars = mars.fit,gam = gam.fit2)), metric = "RMSE")
+
+mars.fit2 <-train(x_n, y_n,method = "earth",tuneGrid = mars_grid,trControl = ctrl1)
+mars.mse2 = mars.fit2$finalModel$gcv
 ```
 
 GCV 1414719
@@ -319,8 +328,16 @@ plot_glmnet(ridge.mod, xvar = "rlambda")
 
 best.lambda = cv.ridge$lambda.min
 best.lambda
-predict(ridge.mod, s = best.lambda, type="coefficients")
-min(cv.ridge$cvm)
+predict(cv.ridge, s = "lambda.min", type="coefficients")
+ridge.mse = min(cv.ridge$cvm)
+
+
+cv.ridge2 <-cv.glmnet(x_n, y_n,alpha = 0,lambda =exp(seq(-1, 10, length=100)),type.measure = "mse")
+
+
+
+predict(cv.ridge2, s = "lambda.min", type="coefficients")
+ridge.mse2 = min(cv.ridge2$cvm)
 ```
 
 the min mse is `r min(cv.ridge$cvm)`. 
@@ -334,7 +351,15 @@ plot_glmnet(cv.lasso$glmnet.fit)
 
 predict(cv.lasso, s="lambda.min", type="coefficients")
 
-min(cv.lasso$cvm)
+lasso.mse = min(cv.lasso$cvm)
+
+cv.lasso2 <-cv.glmnet(x_n, y_n,alpha = 1,lambda =exp(seq(-1, 10, length=100)),type.measure = "mse")
+
+
+predict(cv.lasso2, s="lambda.min", type="coefficients")
+
+lasso.mse2 = min(cv.lasso2$cvm)
+
 ```
 
 ? why is that lasso best lambda is 1 ?
