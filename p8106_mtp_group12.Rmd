@@ -253,13 +253,14 @@ The large scale of our outcome has leads to an unreasonable high deviance in our
 
 ```{r}
 #mars
-mars_grid <-expand.grid(degree = 1:2,nprune = 2:10)
+mars_grid <-expand.grid(degree = 1:2,nprune = 2:30)
 set.seed(2)
-mars.fit <-train(x, y,method = "earth",tuneGrid = mars_grid,trControl = ctrl1)
+mars.fit <-train(x_1, y,method = "earth",tuneGrid = mars_grid,trControl = ctrl1)
+
 ggplot(mars.fit)
 mars.fit$bestTune
 
-
+summary(mars.fit)
 coef(mars.fit$finalModel)
 bwplot(resamples(list(mars = mars.fit,gam = gam.fit)), metric = "RMSE")
 ```
@@ -297,8 +298,10 @@ plot_glmnet(ridge.mod, xvar = "rlambda")
 best.lambda = cv.ridge$lambda.min
 best.lambda
 predict(ridge.mod, s = best.lambda, type="coefficients")
+min(cv.ridge$cvm)
 ```
 
+the min mse is `r min(cv.ridge$cvm)`. 
 
 ```{r}
 cv.lasso <-cv.glmnet(x_1, y,alpha = 1,lambda =exp(seq(-1, 10, length=100)),type.measure = "mse")
@@ -308,7 +311,9 @@ plot(cv.lasso)
 plot_glmnet(cv.lasso$glmnet.fit)
 
 predict(cv.lasso, s="lambda.min", type="coefficients")
+
+min(cv.lasso$cvm)
 ```
 
 ? why is that lasso best lambda is 1 ?
-
+the min mse is `r min(cv.lasso$cvm)`
