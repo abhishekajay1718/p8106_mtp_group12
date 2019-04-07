@@ -42,14 +42,16 @@ https://github.com/abhishekajay1718/p8106_mtp_group12
 
 The Predictors we kept to predict the outcome `cnt`--- daily count of rental bikes, are `season, holiday, workingday, weathersituation,  temp, atemp, humidity, and windspeed`. We choose to delete `year and months` variable since year does not have any significance in logic, and `month` variable is highly correlated to `season` according to the corrplot. In addition, by definition, `working day` are just days other than holiday and weekday, so we choose to delete `weekday` to avoid having too many binary variables. We are keeping all the other predictors since none of them appearred to be redundent to us. We will assume that every parameter we kept will have an impact on the outcome variable before modeling. 
 
-we attempt to fit 5 models in total to this dataset which are simple linear regression, GAM, MARS, ridge, LASSO.
+After the above EDA, we attempt to fit 5 models in total to this dataset which are simple linear regression, GAM, MARS, ridge, LASSO with the 8 predictors mentioned above.
 
 ## Linear Models
 
-Simple linear regression is the very first attempt we made. we would like to see how well the linear regression model perform and what are the coefficients.  Further non-linear regression will be performed in advance and in comparison to this model. We used lm() function to make the model and the MSE is very high. This is according to the large scale of our outcome variable `cnt` which is around 1000 compared to our predictors which are around 1.
+Simple linear regression is the very first attempt we made. we would like to see how well the linear regression model perform and what are the coefficients.  Further non-linear regression will be performed in advance and in comparison to this model. We used lm() function to make the model and the MSE is very high. This is because of the large scale of our response, `cnt` which is on the scale of 1000 compared to our predictors which are around 1.
+
 Since rescaling the outcome variable will change both estimates and the MSE, we chose to both keep the original scale, and run the models the second times while rescaling the outcome by multiplying it to 0.01. 
 
-Futhermore, among those 8 predictors, we decided to perform ridge and LASSO models to shrink the coefficients estimate from linear model. We will select and remove predictors according to their results, and try to produce models with fewer predictors as possible as we can. The resulting estimates are listed in the Estimates section below. 
+Futhermore, among those 8 predictors, we decided to perform ridge and LASSO models to shrink the coefficients estimate from linear model. We will select and remove predictors according to their results, and try to produce models with fewer predictors as possible as we can. The resulting estimates are listed in the Estimates section below. #write soemthing about CV, training and testing
+
 
 ## Non-Linear Models
 
