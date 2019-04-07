@@ -44,14 +44,19 @@ https://github.com/abhishekajay1718/p8106_mtp_group12
 <img src="./splines.png" style="width:90%" >
 # Models
 
-The Predictors we kept to predict the outcome `cnt`--- daily count of rental bikes, are season, holiday, workingday, weathersituation,  temp, atemp, humidity, and windspeed. We choose to delete year and months variable since year does not have any significance in logic, and month variable is highly correlated to season according to the corrplot. In addition, by definition, working day are just days other than holiday and weekday, so we choose to delete weekday to avoid having too many binary variables. We are keeping all the other predictors since none of them appearred to be redundent to us. We will assume that every parameter we kept will have an impact on the outcome variable before modeling. 
+The Predictors we kept to predict the outcome `cnt`--- daily count of rental bikes, are `season, holiday, workingday, weathersituation,  temp, atemp, humidity, and windspeed`. We choose to delete `year and months` variable since year does not have any significance in logic, and `month` variable is highly correlated to `season` according to the corrplot. In addition, by definition, `working day` are just days other than holiday and weekday, so we choose to delete `weekday` to avoid having too many binary variables. We are keeping all the other predictors since none of them appearred to be redundent to us. We will assume that every parameter we kept will have an impact on the outcome variable before modeling. 
 
 we attempt to fit 5 models in total to this dataset which are simple linear regression, GAM, MARS, ridge, lasso.
 
 ## Linear Models
 
+Simple linear regression is the very first attempt we made. we would like to see how well the linear regression model perform and what are the coefficients.  Further non-linear regression will be performed in advance and in comparison to this model. We used lm() function to make the model and the MSE is very high. This is according to the large scale of our outcome variable `cnt` which is around 1000 compared to our predictors which are around 1.
+Since rescaling the outcome variable will change both estimates and MSE, we chose to keep the original scale and its correlation to the predictors. Furthermore, we can still compare the MSE of other models since they should all be very large. 
 
 ## Non-Linear Models
+
+According to our splines plot, the four continuous predictors are having non-linear correlation with the outcome. 
+We decided to try non-linear model covered in class which are GAM and MARS, and they are expected to be more flexible and have better fit than linear one. 
 ## Tuning Parameters
 ## Goodness of Fit
 ## Estimates
