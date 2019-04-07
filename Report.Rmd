@@ -15,6 +15,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
+With the advent of climate change awareness, it has become more important now than ever to look for better alternatives to motorized modes of transportation. One of which is biking. In the recent decades, biking has gained immense popularity in Europe with countries like The Netherlands and Denmark investing heavily in biking infrastructure and making motorized vehicles more expensive. There's one thing that is common to all of these countries. They're all known for the highest quality of life. However, the US is yet to jump on the wagon. 
+
+The bike sharing dataset obtained from the UCI Machine Learning Repository represents bike rental data from the Capital Bikeshare system in Washington, D.C.. We perform the following analysis of a bike rental service in Washington D.C. to forecast the amount of bikes being rented using data from 2011 and 2012. The data set, as described below has various variables such as the weather, humidity, temperature, whether it's a holiday or not, etcetera. We plan to 
+
 ## Dataset
 
 The following dataset has been obtained from the UCI Machine Learning Rpository. We are using the dataset that contains daily counts of bike rentals by both registered and casual members from the Capital Bikeshare System during the years 2011 and 2012. This dataset also contains weather data for each that's been extracted from the www.freemeteo.com while it uses the dc.gov page to extract information about the binary holiday column. 
