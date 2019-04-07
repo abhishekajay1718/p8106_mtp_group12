@@ -271,7 +271,7 @@ The large scale of our outcome has leads to an unreasonable high deviance in our
 #mars
 mars_grid <-expand.grid(degree = 1:2,nprune = 2:30)
 set.seed(2)
-mars.fit <-train(x_1, y,method = "earth",tuneGrid = mars_grid,trControl = ctrl1)
+mars.fit <-train(x, y,method = "earth",tuneGrid = mars_grid,trControl = ctrl1)
 
 ggplot(mars.fit)
 mars.fit$bestTune
