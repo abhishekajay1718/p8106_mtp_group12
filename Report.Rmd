@@ -60,6 +60,9 @@ To find the best $\lambda$ for ridge and LASSO model, we utilize `cv.glmnet` com
 10-Fold Cross-validation is performed to each model and the average test fold MSE is collected to analyze their predictability and their goodness of fit. 
 
 ## Estimates
+
+
+
 # Limitations
 
 # Conclusion
