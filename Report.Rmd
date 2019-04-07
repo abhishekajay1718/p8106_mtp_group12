@@ -21,9 +21,11 @@ The bike sharing dataset obtained from the UCI Machine Learning Repository repre
 
 ## Data Description
 
-The data set has 731 entries with 16 columns. Every column but "dteday" is continuous numerical in its raw form. dteday is a factor with 731 levels. Our response variable is "cnt", defined as the total count of bikes rented on a given day which is the sum of registered and casual users. temp is normalized temperature in Celsius. The values are divided to 41 (max). atemp is normalized feeling temperature in Celsius. The values are divided to 50 (max). hum is normalized humidity. The values are divided to 100 (max). And, windspeed is normalized wind speed. The values are divided to 67 (max). season is 1 for spring, 2 for summer, 3 for fall and 4 forwinter and yr is year 0 for 2011 and 1 for 2012.
+The data set has 731 entries with 16 columns. Every column but "dteday" is continuous numerical in its raw form. dteday is a factor with 731 levels. Our response variable is "cnt", defined as the total count of bikes rented on a given day which is the sum of registered and casual users. temp is *normalized* temperature in Celsius. The values are divided to 41 (max). atemp is *normalized* feeling temperature in Celsius. The values are divided to 50 (max). hum is *normalized* humidity. The values are divided to 100 (max). And, windspeed is *normalized* wind speed. The values are divided to 67 (max). season is 1 for spring, 2 for summer, 3 for fall and 4 forwinter and yr is year 0 for 2011 and 1 for 2012.
 
 ## Data Cleaning
+
+From the above data description, we realise and drop dteday and instant since they're not logical predictors for bike rental. Furthermore, we drop registered and casual and just look at their sum-- **cnt** as our response. We tranform the season, month, year (yr), holiday, workingday, weekday, weathersit to factors.
 
 ## Github Site
 https://github.com/abhishekajay1718/p8106_mtp_group12
