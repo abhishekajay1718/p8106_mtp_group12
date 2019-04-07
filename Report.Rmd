@@ -33,12 +33,14 @@ https://github.com/abhishekajay1718/p8106_mtp_group12
 # Exploratory Data Analysis/ Visualization
 
 ## Predictors Intercorrelation
+<img src="./cor.png" style="width:90%" >
 ## Scatterplots
+<img src="./scatter.png" style="width:90%" >
 ## splines
-
+<img src="./splines.png" style="width:90%" >
 # Models
 
-The Predictors we kept to predict the outcome `cnt`--- daily count of rental bikes, are season, holiday, workingday, weathersituation,  temp, atemp, humidity, and windspeed. We choose to delete year and months variable since year does not have any significance in logic, and month variable is highly correlated to season according to the corrplot. In addition, by definition, working day are just days other than holiday and weekday, so we choose to delete weekday to avoid having too many binary variables. We are keeping all the other predictors since none of them appears to be redundent to us. We will assume that every parameter we kept will have an impact on the outcome variable before modeling. 
+The Predictors we kept to predict the outcome `cnt`--- daily count of rental bikes, are season, holiday, workingday, weathersituation,  temp, atemp, humidity, and windspeed. We choose to delete year and months variable since year does not have any significance in logic, and month variable is highly correlated to season according to the corrplot. In addition, by definition, working day are just days other than holiday and weekday, so we choose to delete weekday to avoid having too many binary variables. We are keeping all the other predictors since none of them appearred to be redundent to us. We will assume that every parameter we kept will have an impact on the outcome variable before modeling. 
 
 we attempt to fit 5 models in total to this dataset which are simple linear regression, GAM, MARS, ridge, lasso.
 
