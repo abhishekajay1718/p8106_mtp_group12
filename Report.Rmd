@@ -82,7 +82,9 @@ We decided to try non-linear model covered in class which are GAM and MARS, and 
 To find the best $\lambda$ for ridge and LASSO model, we utilize `cv.glmnet` command to perform cross-validation with a grid ranged from -1 to 10 and its length equals 100. In addition, GCV, generalized cross-validation with K equals to 10 is performed to produce the optimal tuning parameter for GAM model. In order to minimize the prediction error of  MARS model, we choose our tunning grid to have its degree of interaction ranged from 1 to 3, and its number of retained items from 2 to 30. 
 
 ## Goodness of Fit
+
 10-Fold Cross-validation is performed to each model and the average test fold MSE is collected to analyze their predictability and their goodness of fit. Each model has been performed twice, one with the original outcome variable `cnt`, one with the outcome rescaled to 0.01. 
+The models with rescaled outcome have significant reduction in MSE, while their ranking of goodness of fit does not change. The non-linear models obtained lower MSE than linear models. 
 
 ```{r, echo = FALSE, warning=FALSE}
 library(knitr)
@@ -119,7 +121,6 @@ Our re-scaling is probably a limitation and we believe better methods are out th
 -----------------------------------------------
 # Conclusion
 
-What were your findings? Are they what you expect? What insights into the data can you make?
 
 Here we'll talk about the scaled outcome to accommodate the fact that our response scale is larger than the predictor scale. From the above MSEs we see that the MARS is the best model to predict the bike rental count, however both the non-linear models have more or less the same MSE (difference = 0.0814). While the worst performing model is LASSO. 
 
