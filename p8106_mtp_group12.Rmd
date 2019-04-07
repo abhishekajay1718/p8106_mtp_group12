@@ -232,10 +232,12 @@ GCV score is too large.
 
 ```{r}
 #poisson regression for categorical terms, exclude yr and mnth
-day.glm1 <- glm(cnt~season + holiday + weekday + workingday + weathersit, family=poisson, data=day)
+day.glm1 <- glm(cnt~season + holiday + weekday + workingday + weathersit + temp + atemp + hum + windspeed, family=poisson, data=day)
 summary(day.glm1)
+
 ```
 
+poisson regression is a nonlinear regression for discrete outcomes(when response is a count).  
 
 ```{r}
 #mars
