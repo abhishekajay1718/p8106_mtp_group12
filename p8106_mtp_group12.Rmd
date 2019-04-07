@@ -92,9 +92,6 @@ p <-ggplot(data = day,aes(x = temp, y = cnt))+
   geom_point(color =rgb(.2, .4, .2, .5))
 
 p+geom_line(aes(x = temp, y = pred), data = pred.ss.df,color =rgb(.8, .1, .1, 1))+ theme_bw()
-
-
-
 ```
 
 humidity
@@ -149,6 +146,26 @@ p+geom_line(aes(x = windspeed, y = pred), data = pred.ss.df,color =rgb(.8, .1, .
 
 windspeed ^  --  cnt V
 
+```{r}
+fit.ss <-smooth.spline(day$atemp, day$cnt)
+fit.ss$df
+
+atemplims <-range(day$atemp)
+atemp.grid <-seq(from = atemplims[1],to = atemplims[2], by = 0.01)
+length(atemp.grid)
+
+pred.ss <-predict(fit.ss,
+                  x = atemp.grid)
+
+
+pred.ss.df <-data.frame(pred = pred.ss$y,
+                        atemp = atemp.grid)
+
+p <-ggplot(data = day,aes(x = atemp, y = cnt))+
+  geom_point(color =rgb(.2, .4, .2, .5))
+
+p+geom_line(aes(x = atemp, y = pred), data = pred.ss.df, color =rgb(.8, .1, .1, 1))+ theme_bw()
+```
 
 
 
