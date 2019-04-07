@@ -2,16 +2,12 @@
 title: "Data Science II Midterm Report"
 author: "Pengxuan Chen(pc2853), Abhishek Ajay (aa4266)"
 date: "April 7, 2019"
-output: pdf_document:
-  number_sections: true
-  fig_width: 7
-  fig_height: 6
-  fig_caption: true
+output: pdf_document
+
+
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 # Introduction
 
@@ -30,14 +26,39 @@ From the above data description, we realise and drop dteday and instant since th
 ## Github Site
 https://github.com/abhishekajay1718/p8106_mtp_group12
 
+-----------------------------------------------
+
 # Exploratory Data Analysis/ Visualization
 
+write something for plot partition
+
 ## Predictors Intercorrelation
-<img src="./cor.png" style="width:90%" >
+
+Figure.1
+
+```{r pressure, echo=FALSE, fig.cap="Corrplot", out.width = '80%'}
+knitr::include_graphics("cor.png")
+```
+
+
 ## Scatterplots
-<img src="./scatter.png" style="width:90%" >
+
+Figure.2
+
+
+```{r , echo=FALSE, fig.cap="Scatterplot", out.width = '80%'}
+knitr::include_graphics("scatter.png")
+```
+
 ## splines
-<img src="./splines.png" style="width:90%" >
+
+Figure.3
+
+
+```{r , echo=FALSE, fig.cap="Splines", out.width = '80%'}
+knitr::include_graphics("splines.png")
+```
+
 # Models
 
 The Predictors we kept to predict the outcome `cnt`--- daily count of rental bikes, are `season, holiday, workingday, weathersituation,  temp, atemp, humidity, and windspeed`. We choose to delete `year and months` variable since year does not have any significance in logic, and `month` variable is highly correlated to `season` according to the corrplot. In addition, by definition, `working day` are just days other than holiday and weekday, so we choose to delete `weekday` to avoid having too many binary variables. We are keeping all the other predictors since none of them appearred to be redundent to us. We will assume that every parameter we kept will have an impact on the outcome variable before modeling. 
@@ -64,8 +85,9 @@ To find the best $\lambda$ for ridge and LASSO model, we utilize `cv.glmnet` com
 ## Goodness of Fit
 10-Fold Cross-validation is performed to each model and the average test fold MSE is collected to analyze their predictability and their goodness of fit. Each model has been performed twice, one with the original outcome variable `cnt`, one with the outcome rescaled to 0.01. 
 
-```{r, echo = FALSE}
-
+```{r, echo = FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
 table1 = matrix(c(1416175,	1418371,1710750,1717490,1718853,141.7557,		141.8371,	169.6783,	170.2468,	175.4663),
                 ncol = 2)
 colnames(table1) = c("MSE for original outcome"," MSE for scaled outcome")
@@ -75,17 +97,10 @@ knitr::kable(table1, caption = "Average test fold MSE") %>%
 ```
 
 ## Estimates
-<<<<<<< HEAD
-=======
-
-
-
-# Limitations
->>>>>>> 6de4d58101498c5669a5873560c56bf7253470c0
 
 Estimates of coefficients for each predictor are measured by Simple Linear model, ridge and LASSO model. Each of the three model are performed twice for the original outcome and the rescaled outcome. 
 
-```{r}
+```{r ,echo = FALSE}
 table2 = matrix(c(3061.1085  , 917.6644 ,  469.1203 , 1493.7920  ,-596.8185 ,  101.1146  ,-233.9494 ,-1941.7010,5818.3184,406.0477 ,-2610.9173 ,-3280.3364,30.611085,   9.176644 ,  4.691203,  14.937920 , -5.968185,1.011146,  -2.339494 ,-19.417010 , 58.183184,4.060477 ,-26.109173 ,-32.803364 ,2944.1794 ,  840.7957 ,439.4329 , 1383.8011 , -570.4896 ,  103.0900 , -247.3344, -1902.5122 , 3504.1926,2917.0274, -2466.6025,-3087.8805, 29.468977 ,  8.452095 ,  4.426609 , 13.896301 , -5.714296  , 1.030874  ,-2.465057, -19.041578 , 35.311387,28.895797 ,-24.755658, -30.930439, 3050.10123 ,  899.99200 ,  448.73319 , 1479.01403 , -590.47346  ,  98.38661 , -231.47830, -1932.26671,5744.73842  , 517.48958 ,-2602.77634, -3262.74584,28.5482360,   5.1809573  , 0.0000000 , 11.4923601 , -4.3710025 ,  0.2990248 , -1.7623000 ,-17.2240229,58.2129942,  10.3914228, -23.6076260, -29.0829508),ncol = 6)
 rownames(table2) = c("(Intercept)","season2"   ,  "season3"  ,   "season4"   ,  "holiday1"   , "workingday1", "weathersit2","weathersit3" ,"temp"    ,    "atemp"    ,   "hum"      ,   "windspeed")
 colnames(table2) = c("Linear", "Linear rescaled", "ridge", "ridge rescaled", "LASSO", "LASSO rescaled")
