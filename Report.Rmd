@@ -92,6 +92,7 @@ table2 %>%
   
 ```
 -----------------------------------------------
+
 ## Limitations
 
 We see that there's a large difference in the scale of our response and predictors. This significantly affects our MSE in linear models. For this one might scale their response but that affects our interpretation. 
@@ -99,6 +100,7 @@ We see that there's a large difference in the scale of our response and predicto
 Our re-scaling is probably a limitation and we believe better methods are out there to better transform it. On the other hand, our non-linear model was flexible enough to campture the underlying truth since our linear models and non linear models both show very high dependence of the reponse on the continuous predictions used in GAM and MARS. This is also noticable with the decrease in our MSE when moving from linear model to non linear models. 
 
 -----------------------------------------------
+
 # Conclusion
 
 Here we'll talk about the scaled outcome to accommodate the fact that our response scale is larger than the predictor scale. From the above MSEs we see that the MARS is the best model to predict the bike rental count, however both the non-linear models have more or less the same MSE (difference = 0.0814). While the worst performing model is LASSO. 
@@ -109,7 +111,11 @@ Therefore, this analysis tells us that the variables most consequential in estim
 
 -----------------------------------------------
 
-```{r pressure, echo=FALSE, fig.cap="Corrplot", out.width = '80%'}
+
+
+
+
+```{r , echo=FALSE, fig.cap="Corrplot", out.width = '100%'}
 knitr::include_graphics("cor.png")
 ```
 
