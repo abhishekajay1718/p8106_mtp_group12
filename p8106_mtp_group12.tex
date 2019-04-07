@@ -1,0 +1,1599 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={p8106\_mtp},
+            pdfauthor={Abhishek Ajay and PengXuan Chen},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{p8106\_mtp}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Abhishek Ajay and PengXuan Chen}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{April 2, 2019}
+
+
+\begin{document}
+\maketitle
+
+\subsection{Introduction}\label{introduction}
+
+\textbf{Describe your data set. Provide proper motivation for your
+work.}
+
+What questions are you trying to answer?
+
+The following dataset has been obtained from the UCI Machine Learning
+Rpository. We are using the dataset that contains daily counts of bike
+rentals by both registered and casual members from the Capital Bikeshare
+System during the years 2011 and 2012. This dataset also contains
+weather data for each that's been extracted from the www.freemeteo.com
+while it uses the dc.gov page to extract information about the binary
+holiday column.
+
+Capital Bikeshare has over 350 stations in Washington, D.C., Alington,
+VA and MD, etc.
+
+We are trying to use this dataset to see if temperature, weather and
+type of day (working day, weekend or a holiday) have any effect on the
+amount of bike rentals on any given day. Simply put, we're trying to
+forecast bike rentals on any day. This can have a ton of implications in
+traffic management. Forecasting the amount of bikes on the road can give
+a better sense of travel time and allowing taxi services to provide more
+accurate ``estimated time of arrival'' estimates.
+
+\textbf{How did you prepare and clean the data?}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{day =}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"./data/day.csv"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{janitor}\OperatorTok{::}\KeywordTok{clean_names}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{(dteday, instant)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{season =} \KeywordTok{as.factor}\NormalTok{(season), }
+         \DataTypeTok{yr =} \KeywordTok{as.factor}\NormalTok{(yr), }
+         \DataTypeTok{mnth =} \KeywordTok{as.factor}\NormalTok{(mnth), }
+         \DataTypeTok{holiday =} \KeywordTok{as.factor}\NormalTok{(holiday), }
+         \DataTypeTok{weekday =} \KeywordTok{as.factor}\NormalTok{(weekday), }
+         \DataTypeTok{workingday =} \KeywordTok{as.factor}\NormalTok{(workingday)}
+         \CommentTok{#dteday = as.vector(dteday)}
+\NormalTok{         ) }
+  
+\NormalTok{x =}\StringTok{ }\NormalTok{day  }
+\NormalTok{x =}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(casual }\OperatorTok{+}\StringTok{ }\NormalTok{registered }\OperatorTok{+}\StringTok{ }\NormalTok{cnt}\OperatorTok{~}\NormalTok{., x)[,}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
+\NormalTok{y =}\StringTok{ }\NormalTok{day}\OperatorTok{$}\NormalTok{cnt}
+\KeywordTok{corrplot}\NormalTok{(}\KeywordTok{cor}\NormalTok{(x))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p8106_mtp_group12_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Non Linear Methods from L5.pdf}
+\NormalTok{theme1 <-}\KeywordTok{trellis.par.get}\NormalTok{()}
+\NormalTok{theme1}\OperatorTok{$}\NormalTok{plot.symbol}\OperatorTok{$}\NormalTok{col <-}\KeywordTok{rgb}\NormalTok{(.}\DecValTok{2}\NormalTok{, .}\DecValTok{4}\NormalTok{, .}\DecValTok{2}\NormalTok{, .}\DecValTok{5}\NormalTok{)}
+\NormalTok{theme1}\OperatorTok{$}\NormalTok{plot.symbol}\OperatorTok{$}\NormalTok{pch <-}\StringTok{ }\DecValTok{16}
+\NormalTok{theme1}\OperatorTok{$}\NormalTok{plot.line}\OperatorTok{$}\NormalTok{col <-}\KeywordTok{rgb}\NormalTok{(.}\DecValTok{8}\NormalTok{, .}\DecValTok{1}\NormalTok{, .}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{theme1}\OperatorTok{$}\NormalTok{plot.line}\OperatorTok{$}\NormalTok{lwd <-}\StringTok{ }\DecValTok{2}
+\NormalTok{theme1}\OperatorTok{$}\NormalTok{strip.background}\OperatorTok{$}\NormalTok{col <-}\KeywordTok{rgb}\NormalTok{(.}\DecValTok{0}\NormalTok{, .}\DecValTok{2}\NormalTok{, .}\DecValTok{6}\NormalTok{, .}\DecValTok{2}\NormalTok{)}
+\KeywordTok{trellis.par.set}\NormalTok{(theme1)}
+\KeywordTok{featurePlot}\NormalTok{(x, y, }\DataTypeTok{plot =} \StringTok{"scatter"}\NormalTok{, }\DataTypeTok{labels =}\KeywordTok{c}\NormalTok{(}\StringTok{""}\NormalTok{,}\StringTok{"Y"}\NormalTok{),}\DataTypeTok{type =}\KeywordTok{c}\NormalTok{(}\StringTok{"p"}\NormalTok{), }\DataTypeTok{layout =}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p8106_mtp_group12_files/figure-latex/unnamed-chunk-2-1.pdf}
+\includegraphics{p8106_mtp_group12_files/figure-latex/unnamed-chunk-2-2.pdf}
+\includegraphics{p8106_mtp_group12_files/figure-latex/unnamed-chunk-2-3.pdf}
+\includegraphics{p8106_mtp_group12_files/figure-latex/unnamed-chunk-2-4.pdf}
+
+The above plots clearly show that there's non linear relationship
+between ``cnt'' and temp, atemp, hum and windspeed. What follows is us
+trying to fit univariate non-linear models and GAM to investigate the
+association between cnt and the four predictors.
+
+smooth splines
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#temp}
+\NormalTok{fit.ss <-}\KeywordTok{smooth.spline}\NormalTok{(day}\OperatorTok{$}\NormalTok{temp, day}\OperatorTok{$}\NormalTok{cnt)}
+\NormalTok{fit.ss}\OperatorTok{$}\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 8.884527
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{templims <-}\KeywordTok{range}\NormalTok{(day}\OperatorTok{$}\NormalTok{temp)}
+\NormalTok{temp.grid <-}\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =}\NormalTok{ templims[}\DecValTok{1}\NormalTok{],}\DataTypeTok{to =}\NormalTok{ templims[}\DecValTok{2}\NormalTok{], }\DataTypeTok{by =} \FloatTok{0.0001}\NormalTok{)}
+\KeywordTok{length}\NormalTok{(temp.grid)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 8026
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.ss <-}\KeywordTok{predict}\NormalTok{(fit.ss,}
+                  \DataTypeTok{x =}\NormalTok{ temp.grid)}
+
+
+\NormalTok{pred.ss.df <-}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{pred =}\NormalTok{ pred.ss}\OperatorTok{$}\NormalTok{y,}
+                        \DataTypeTok{temp =}\NormalTok{ temp.grid)}
+
+\NormalTok{p <-}\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ day,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ temp, }\DataTypeTok{y =}\NormalTok{ cnt))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{color =}\KeywordTok{rgb}\NormalTok{(.}\DecValTok{2}\NormalTok{, .}\DecValTok{4}\NormalTok{, .}\DecValTok{2}\NormalTok{, .}\DecValTok{5}\NormalTok{))}
+
+\NormalTok{p}\OperatorTok{+}\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ temp, }\DataTypeTok{y =}\NormalTok{ pred), }\DataTypeTok{data =}\NormalTok{ pred.ss.df,}\DataTypeTok{color =}\KeywordTok{rgb}\NormalTok{(.}\DecValTok{8}\NormalTok{, .}\DecValTok{1}\NormalTok{, .}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p8106_mtp_group12_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#humidity}
+\NormalTok{fit.ss <-}\KeywordTok{smooth.spline}\NormalTok{(day}\OperatorTok{$}\NormalTok{hum, day}\OperatorTok{$}\NormalTok{cnt)}
+\NormalTok{fit.ss}\OperatorTok{$}\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4.529077
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{humlims <-}\KeywordTok{range}\NormalTok{(day}\OperatorTok{$}\NormalTok{hum)}
+\NormalTok{hum.grid <-}\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =}\NormalTok{ humlims[}\DecValTok{1}\NormalTok{],}\DataTypeTok{to =}\NormalTok{ humlims[}\DecValTok{2}\NormalTok{], }\DataTypeTok{by =} \FloatTok{0.001}\NormalTok{)}
+\KeywordTok{length}\NormalTok{(hum.grid)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 973
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.ss <-}\KeywordTok{predict}\NormalTok{(fit.ss,}
+                  \DataTypeTok{x =}\NormalTok{ hum.grid)}
+
+
+\NormalTok{pred.ss.df <-}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{pred =}\NormalTok{ pred.ss}\OperatorTok{$}\NormalTok{y,}
+                        \DataTypeTok{hum =}\NormalTok{ hum.grid)}
+
+\NormalTok{p <-}\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ day,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ hum, }\DataTypeTok{y =}\NormalTok{ cnt))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{color =}\KeywordTok{rgb}\NormalTok{(.}\DecValTok{2}\NormalTok{, .}\DecValTok{4}\NormalTok{, .}\DecValTok{2}\NormalTok{, .}\DecValTok{5}\NormalTok{))}
+
+\NormalTok{p}\OperatorTok{+}\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ hum, }\DataTypeTok{y =}\NormalTok{ pred), }\DataTypeTok{data =}\NormalTok{ pred.ss.df,}\DataTypeTok{color =}\KeywordTok{rgb}\NormalTok{(.}\DecValTok{8}\NormalTok{, .}\DecValTok{1}\NormalTok{, .}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p8106_mtp_group12_files/figure-latex/unnamed-chunk-3-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#pretty persuasive, since 0.5-0.75 is the best comfortable humidity}
+
+\CommentTok{#windspeed}
+\NormalTok{fit.ss <-}\KeywordTok{smooth.spline}\NormalTok{(day}\OperatorTok{$}\NormalTok{windspeed, day}\OperatorTok{$}\NormalTok{cnt)}
+\NormalTok{fit.ss}\OperatorTok{$}\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6.012419
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{windspeedlims <-}\KeywordTok{range}\NormalTok{(day}\OperatorTok{$}\NormalTok{windspeed)}
+\NormalTok{windspeed.grid <-}\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =}\NormalTok{ windspeedlims[}\DecValTok{1}\NormalTok{],}\DataTypeTok{to =}\NormalTok{ windspeedlims[}\DecValTok{2}\NormalTok{], }\DataTypeTok{by =} \FloatTok{0.001}\NormalTok{)}
+\KeywordTok{length}\NormalTok{(windspeed.grid)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 486
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.ss <-}\KeywordTok{predict}\NormalTok{(fit.ss,}
+                  \DataTypeTok{x =}\NormalTok{ windspeed.grid)}
+
+
+\NormalTok{pred.ss.df <-}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{pred =}\NormalTok{ pred.ss}\OperatorTok{$}\NormalTok{y,}
+                        \DataTypeTok{windspeed =}\NormalTok{ windspeed.grid)}
+
+\NormalTok{p <-}\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ day,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ windspeed, }\DataTypeTok{y =}\NormalTok{ cnt))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{color =}\KeywordTok{rgb}\NormalTok{(.}\DecValTok{2}\NormalTok{, .}\DecValTok{4}\NormalTok{, .}\DecValTok{2}\NormalTok{, .}\DecValTok{5}\NormalTok{))}
+
+\NormalTok{p}\OperatorTok{+}\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ windspeed, }\DataTypeTok{y =}\NormalTok{ pred), }\DataTypeTok{data =}\NormalTok{ pred.ss.df,}\DataTypeTok{color =}\KeywordTok{rgb}\NormalTok{(.}\DecValTok{8}\NormalTok{, .}\DecValTok{1}\NormalTok{, .}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p8106_mtp_group12_files/figure-latex/unnamed-chunk-3-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# windspeed ^  --  cnt V}
+
+\CommentTok{#atemp}
+\NormalTok{fit.ss <-}\KeywordTok{smooth.spline}\NormalTok{(day}\OperatorTok{$}\NormalTok{atemp, day}\OperatorTok{$}\NormalTok{cnt)}
+\NormalTok{fit.ss}\OperatorTok{$}\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.764835
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{atemplims <-}\KeywordTok{range}\NormalTok{(day}\OperatorTok{$}\NormalTok{atemp)}
+\NormalTok{atemp.grid <-}\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =}\NormalTok{ atemplims[}\DecValTok{1}\NormalTok{],}\DataTypeTok{to =}\NormalTok{ atemplims[}\DecValTok{2}\NormalTok{], }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
+\KeywordTok{length}\NormalTok{(atemp.grid)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 77
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.ss <-}\KeywordTok{predict}\NormalTok{(fit.ss,}
+                  \DataTypeTok{x =}\NormalTok{ atemp.grid)}
+
+
+\NormalTok{pred.ss.df <-}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{pred =}\NormalTok{ pred.ss}\OperatorTok{$}\NormalTok{y,}
+                        \DataTypeTok{atemp =}\NormalTok{ atemp.grid)}
+
+\NormalTok{p <-}\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ day,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ atemp, }\DataTypeTok{y =}\NormalTok{ cnt))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{color =}\KeywordTok{rgb}\NormalTok{(.}\DecValTok{2}\NormalTok{, .}\DecValTok{4}\NormalTok{, .}\DecValTok{2}\NormalTok{, .}\DecValTok{5}\NormalTok{))}
+
+\NormalTok{p}\OperatorTok{+}\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ atemp, }\DataTypeTok{y =}\NormalTok{ pred), }\DataTypeTok{data =}\NormalTok{ pred.ss.df, }\DataTypeTok{color =}\KeywordTok{rgb}\NormalTok{(.}\DecValTok{8}\NormalTok{, .}\DecValTok{1}\NormalTok{, .}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p8106_mtp_group12_files/figure-latex/unnamed-chunk-3-4.pdf}
+
+\subsection{GAM}\label{gam}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gam.m1 =}\StringTok{ }\KeywordTok{gam}\NormalTok{(cnt}\OperatorTok{~}\StringTok{ }\NormalTok{season }\OperatorTok{+}\StringTok{ }\NormalTok{yr }\OperatorTok{+}\StringTok{ }\NormalTok{mnth }\OperatorTok{+}\StringTok{ }\NormalTok{holiday }\OperatorTok{+}\StringTok{ }\NormalTok{weekday }\OperatorTok{+}\StringTok{ }\NormalTok{workingday }\OperatorTok{+}\StringTok{ }\NormalTok{weathersit }\OperatorTok{+}\StringTok{ }\NormalTok{temp }\OperatorTok{+}\StringTok{ }\NormalTok{atemp }\OperatorTok{+}\StringTok{ }\NormalTok{hum }\OperatorTok{+}\StringTok{ }\NormalTok{windspeed, }\DataTypeTok{data =}\NormalTok{ day)}
+
+\NormalTok{gam.m2 =}\StringTok{ }\KeywordTok{gam}\NormalTok{(cnt}\OperatorTok{~}\StringTok{ }\NormalTok{season }\OperatorTok{+}\StringTok{ }\NormalTok{yr }\OperatorTok{+}\StringTok{ }\NormalTok{mnth }\OperatorTok{+}\StringTok{ }\NormalTok{holiday }\OperatorTok{+}\StringTok{ }\NormalTok{weekday }\OperatorTok{+}\StringTok{ }\NormalTok{workingday }\OperatorTok{+}\StringTok{ }\NormalTok{weathersit }\OperatorTok{+}\StringTok{ }\KeywordTok{s}\NormalTok{(temp) }\OperatorTok{+}\StringTok{ }\NormalTok{atemp }\OperatorTok{+}\StringTok{ }\NormalTok{hum }\OperatorTok{+}\StringTok{ }\NormalTok{windspeed, }\DataTypeTok{data =}\NormalTok{ day) }\CommentTok{# s:temp}
+\NormalTok{gam.m3 =}\StringTok{ }\KeywordTok{gam}\NormalTok{(cnt}\OperatorTok{~}\StringTok{ }\NormalTok{season }\OperatorTok{+}\StringTok{ }\NormalTok{yr }\OperatorTok{+}\StringTok{ }\NormalTok{mnth }\OperatorTok{+}\StringTok{ }\NormalTok{holiday }\OperatorTok{+}\StringTok{ }\NormalTok{weekday }\OperatorTok{+}\StringTok{ }\NormalTok{workingday }\OperatorTok{+}\StringTok{ }\NormalTok{weathersit }\OperatorTok{+}\StringTok{ }\NormalTok{temp }\OperatorTok{+}\StringTok{ }\KeywordTok{s}\NormalTok{(atemp) }\OperatorTok{+}\StringTok{ }\NormalTok{hum }\OperatorTok{+}\StringTok{ }\NormalTok{windspeed, }\DataTypeTok{data =}\NormalTok{ day) }\CommentTok{# s:atemp}
+\NormalTok{gam.m4 =}\StringTok{ }\KeywordTok{gam}\NormalTok{(cnt}\OperatorTok{~}\StringTok{ }\NormalTok{season }\OperatorTok{+}\StringTok{ }\NormalTok{yr }\OperatorTok{+}\StringTok{ }\NormalTok{mnth }\OperatorTok{+}\StringTok{ }\NormalTok{holiday }\OperatorTok{+}\StringTok{ }\NormalTok{weekday }\OperatorTok{+}\StringTok{ }\NormalTok{workingday }\OperatorTok{+}\StringTok{ }\NormalTok{weathersit }\OperatorTok{+}\StringTok{ }\NormalTok{temp }\OperatorTok{+}\StringTok{ }\NormalTok{atemp }\OperatorTok{+}\StringTok{ }\KeywordTok{s}\NormalTok{(hum) }\OperatorTok{+}\StringTok{ }\NormalTok{windspeed, }\DataTypeTok{data =}\NormalTok{ day) }\CommentTok{# s:hum}
+\NormalTok{gam.m5 =}\StringTok{ }\KeywordTok{gam}\NormalTok{(cnt}\OperatorTok{~}\StringTok{ }\NormalTok{season }\OperatorTok{+}\StringTok{ }\NormalTok{yr }\OperatorTok{+}\StringTok{ }\NormalTok{mnth }\OperatorTok{+}\StringTok{ }\NormalTok{holiday }\OperatorTok{+}\StringTok{ }\NormalTok{weekday }\OperatorTok{+}\StringTok{ }\NormalTok{workingday }\OperatorTok{+}\StringTok{ }\NormalTok{weathersit }\OperatorTok{+}\StringTok{ }\NormalTok{temp }\OperatorTok{+}\StringTok{ }\NormalTok{atemp }\OperatorTok{+}\StringTok{ }\NormalTok{hum }\OperatorTok{+}\StringTok{ }\KeywordTok{s}\NormalTok{(windspeed), }\DataTypeTok{data =}\NormalTok{ day) }\CommentTok{# s:windspeed}
+
+\KeywordTok{anova}\NormalTok{(gam.m1, gam.m2, }\DataTypeTok{test =} \StringTok{"F"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Deviance Table
+## 
+## Model 1: cnt ~ season + yr + mnth + holiday + weekday + workingday + weathersit + 
+##     temp + atemp + hum + windspeed
+## Model 2: cnt ~ season + yr + mnth + holiday + weekday + workingday + weathersit + 
+##     s(temp) + atemp + hum + windspeed
+##   Resid. Df Resid. Dev     Df  Deviance      F    Pr(>F)    
+## 1    703.00  430959946                                      
+## 2    695.93  326970947 7.0732 103988999 31.342 < 2.2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{anova}\NormalTok{(gam.m1, gam.m3, }\DataTypeTok{test =} \StringTok{"F"}\NormalTok{)  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Deviance Table
+## 
+## Model 1: cnt ~ season + yr + mnth + holiday + weekday + workingday + weathersit + 
+##     temp + atemp + hum + windspeed
+## Model 2: cnt ~ season + yr + mnth + holiday + weekday + workingday + weathersit + 
+##     temp + s(atemp) + hum + windspeed
+##   Resid. Df Resid. Dev     Df Deviance      F    Pr(>F)    
+## 1    703.00  430959946                                     
+## 2    697.54  339777843 5.4565 91182104 34.367 < 2.2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{anova}\NormalTok{(gam.m1, gam.m2, gam.m3, gam.m4, gam.m5, }\DataTypeTok{test =} \StringTok{"F"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Deviance Table
+## 
+## Model 1: cnt ~ season + yr + mnth + holiday + weekday + workingday + weathersit + 
+##     temp + atemp + hum + windspeed
+## Model 2: cnt ~ season + yr + mnth + holiday + weekday + workingday + weathersit + 
+##     s(temp) + atemp + hum + windspeed
+## Model 3: cnt ~ season + yr + mnth + holiday + weekday + workingday + weathersit + 
+##     temp + s(atemp) + hum + windspeed
+## Model 4: cnt ~ season + yr + mnth + holiday + weekday + workingday + weathersit + 
+##     temp + atemp + s(hum) + windspeed
+## Model 5: cnt ~ season + yr + mnth + holiday + weekday + workingday + weathersit + 
+##     temp + atemp + hum + s(windspeed)
+##   Resid. Df Resid. Dev      Df  Deviance      F    Pr(>F)    
+## 1    703.00  430959946                                       
+## 2    695.93  326970947  7.0732 103988999 31.342 < 2.2e-16 ***
+## 3    697.54  339777843 -1.6167 -12806895 16.888  7.98e-07 ***
+## 4    699.89  411584980 -2.3474 -71807137 65.213 < 2.2e-16 ***
+## 5    697.79  419180438  2.1005  -7595458                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(gam.m2)}
+\KeywordTok{plot}\NormalTok{(gam.m3)}
+\KeywordTok{plot}\NormalTok{(gam.m4)}
+\KeywordTok{plot}\NormalTok{(gam.m5)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p8106_mtp_group12_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#deleting the yr and mnth variables}
+
+\NormalTok{gam.m1a =}\StringTok{ }\KeywordTok{gam}\NormalTok{(cnt}\OperatorTok{~}\StringTok{ }\NormalTok{season }\OperatorTok{+}\StringTok{  }\NormalTok{holiday }\OperatorTok{+}\StringTok{ }\NormalTok{weekday }\OperatorTok{+}\StringTok{ }\NormalTok{workingday }\OperatorTok{+}\StringTok{ }\NormalTok{weathersit }\OperatorTok{+}\StringTok{ }\NormalTok{temp }\OperatorTok{+}\StringTok{ }\NormalTok{atemp }\OperatorTok{+}\StringTok{ }\NormalTok{hum }\OperatorTok{+}\StringTok{ }\NormalTok{windspeed, }\DataTypeTok{data =}\NormalTok{ day)}
+
+
+\NormalTok{gam.m2a =}\StringTok{ }\KeywordTok{gam}\NormalTok{(cnt}\OperatorTok{~}\StringTok{ }\NormalTok{season }\OperatorTok{+}\StringTok{  }\NormalTok{holiday }\OperatorTok{+}\StringTok{ }\NormalTok{weekday }\OperatorTok{+}\StringTok{ }\NormalTok{workingday }\OperatorTok{+}\StringTok{ }\NormalTok{weathersit }\OperatorTok{+}\StringTok{ }\KeywordTok{s}\NormalTok{(temp) }\OperatorTok{+}\StringTok{ }\NormalTok{atemp }\OperatorTok{+}\StringTok{ }\NormalTok{hum }\OperatorTok{+}\StringTok{ }\NormalTok{windspeed, }\DataTypeTok{data =}\NormalTok{ day) }\CommentTok{# s:temp}
+\NormalTok{gam.m3a =}\StringTok{ }\KeywordTok{gam}\NormalTok{(cnt}\OperatorTok{~}\StringTok{ }\NormalTok{season }\OperatorTok{+}\StringTok{  }\NormalTok{holiday }\OperatorTok{+}\StringTok{ }\NormalTok{weekday }\OperatorTok{+}\StringTok{ }\NormalTok{workingday }\OperatorTok{+}\StringTok{ }\NormalTok{weathersit }\OperatorTok{+}\StringTok{ }\NormalTok{temp }\OperatorTok{+}\StringTok{ }\KeywordTok{s}\NormalTok{(atemp) }\OperatorTok{+}\StringTok{ }\NormalTok{hum }\OperatorTok{+}\StringTok{ }\NormalTok{windspeed, }\DataTypeTok{data =}\NormalTok{ day) }\CommentTok{# s:atemp}
+\NormalTok{gam.m4a =}\StringTok{ }\KeywordTok{gam}\NormalTok{(cnt}\OperatorTok{~}\StringTok{ }\NormalTok{season }\OperatorTok{+}\StringTok{  }\NormalTok{holiday }\OperatorTok{+}\StringTok{ }\NormalTok{weekday }\OperatorTok{+}\StringTok{ }\NormalTok{workingday }\OperatorTok{+}\StringTok{ }\NormalTok{weathersit }\OperatorTok{+}\StringTok{ }\NormalTok{temp }\OperatorTok{+}\StringTok{ }\NormalTok{atemp }\OperatorTok{+}\StringTok{ }\KeywordTok{s}\NormalTok{(hum) }\OperatorTok{+}\StringTok{ }\NormalTok{windspeed, }\DataTypeTok{data =}\NormalTok{ day) }\CommentTok{# s:hum}
+\NormalTok{gam.m5a =}\StringTok{ }\KeywordTok{gam}\NormalTok{(cnt}\OperatorTok{~}\StringTok{ }\NormalTok{season }\OperatorTok{+}\StringTok{  }\NormalTok{holiday }\OperatorTok{+}\StringTok{ }\NormalTok{weekday }\OperatorTok{+}\StringTok{ }\NormalTok{workingday }\OperatorTok{+}\StringTok{ }\NormalTok{weathersit }\OperatorTok{+}\StringTok{ }\NormalTok{temp }\OperatorTok{+}\StringTok{ }\NormalTok{atemp }\OperatorTok{+}\StringTok{ }\NormalTok{hum }\OperatorTok{+}\StringTok{ }\KeywordTok{s}\NormalTok{(windspeed), }\DataTypeTok{data =}\NormalTok{ day) }\CommentTok{# s:windspeed}
+
+\KeywordTok{anova}\NormalTok{(gam.m1, gam.m2, }\DataTypeTok{test =} \StringTok{"F"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Deviance Table
+## 
+## Model 1: cnt ~ season + yr + mnth + holiday + weekday + workingday + weathersit + 
+##     temp + atemp + hum + windspeed
+## Model 2: cnt ~ season + yr + mnth + holiday + weekday + workingday + weathersit + 
+##     s(temp) + atemp + hum + windspeed
+##   Resid. Df Resid. Dev     Df  Deviance      F    Pr(>F)    
+## 1    703.00  430959946                                      
+## 2    695.93  326970947 7.0732 103988999 31.342 < 2.2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{anova}\NormalTok{(gam.m1, gam.m3, }\DataTypeTok{test =} \StringTok{"F"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Deviance Table
+## 
+## Model 1: cnt ~ season + yr + mnth + holiday + weekday + workingday + weathersit + 
+##     temp + atemp + hum + windspeed
+## Model 2: cnt ~ season + yr + mnth + holiday + weekday + workingday + weathersit + 
+##     temp + s(atemp) + hum + windspeed
+##   Resid. Df Resid. Dev     Df Deviance      F    Pr(>F)    
+## 1    703.00  430959946                                     
+## 2    697.54  339777843 5.4565 91182104 34.367 < 2.2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(gam.m2a)}
+\KeywordTok{plot}\NormalTok{(gam.m3a)}
+\KeywordTok{plot}\NormalTok{(gam.m4a)}
+\KeywordTok{plot}\NormalTok{(gam.m5a)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p8106_mtp_group12_files/figure-latex/unnamed-chunk-4-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#GCV to select df}
+
+\NormalTok{ctrl1 <-}\KeywordTok{trainControl}\NormalTok{(}\DataTypeTok{method =} \StringTok{"cv"}\NormalTok{, }\DataTypeTok{number =} \DecValTok{10}\NormalTok{)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\NormalTok{gam.fit <-}\KeywordTok{train}\NormalTok{(x, y,}\DataTypeTok{method =} \StringTok{"gam"}\NormalTok{,}\DataTypeTok{tuneGrid =}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{method =} \StringTok{"GCV.Cp"}\NormalTok{, }\DataTypeTok{select =}\KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{,}\OtherTok{FALSE}\NormalTok{)),}\DataTypeTok{trControl =}\NormalTok{ ctrl1)}
+
+\NormalTok{gam.fit}\OperatorTok{$}\NormalTok{bestTune}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   select method
+## 2   TRUE GCV.Cp
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gam.fit}\OperatorTok{$}\NormalTok{finalModel}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## .outcome ~ season2 + season3 + season4 + yr1 + mnth2 + mnth3 + 
+##     mnth4 + mnth5 + mnth6 + mnth7 + mnth8 + mnth9 + mnth10 + 
+##     mnth11 + mnth12 + weekday1 + weekday2 + weekday3 + weekday4 + 
+##     weekday5 + weekday6 + workingday1 + weathersit + s(temp) + 
+##     s(hum) + s(windspeed) + s(atemp)
+## 
+## Estimated degrees of freedom:
+## 6.57 3.41 4.83 0.00  total = 38.8 
+## 
+## GCV score: 447960
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x_}\DecValTok{2}\NormalTok{ =}\StringTok{ }
+\StringTok{  }\NormalTok{day }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{( casual, registered, cnt, yr, mnth))}
+
+\NormalTok{x_}\DecValTok{2}\NormalTok{ =}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(}\OperatorTok{~}\NormalTok{., x_}\DecValTok{2}\NormalTok{)}
+
+
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{3}\NormalTok{)}
+\NormalTok{gam.fit2 <-}\KeywordTok{train}\NormalTok{(x_}\DecValTok{2}\NormalTok{, y,}\DataTypeTok{method =} \StringTok{"gam"}\NormalTok{,}\DataTypeTok{tuneGrid =}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{method =} \StringTok{"GCV.Cp"}\NormalTok{, }\DataTypeTok{select =}\KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{,}\OtherTok{FALSE}\NormalTok{)),}\DataTypeTok{trControl =}\NormalTok{ ctrl1)}
+
+\NormalTok{gam.fit2}\OperatorTok{$}\NormalTok{bestTune}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   select method
+## 1  FALSE GCV.Cp
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gam.fit2}\OperatorTok{$}\NormalTok{finalModel}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## .outcome ~ season2 + season3 + season4 + weekday1 + weekday2 + 
+##     weekday3 + weekday4 + weekday5 + weekday6 + workingday1 + 
+##     weathersit + s(temp) + s(hum) + s(windspeed) + s(atemp)
+## 
+## Estimated degrees of freedom:
+## 6.34 4.66 1.00 9.00  total = 33 
+## 
+## GCV score: 1407987
+\end{verbatim}
+
+?The deviance is pretty huge of those ANOVA?
+
+GCV score is too large.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#poisson regression for categorical terms, exclude yr and mnth}
+\NormalTok{day.glm1 <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(cnt}\OperatorTok{~}\NormalTok{season }\OperatorTok{+}\StringTok{ }\NormalTok{holiday }\OperatorTok{+}\StringTok{ }\NormalTok{weekday }\OperatorTok{+}\StringTok{ }\NormalTok{workingday }\OperatorTok{+}\StringTok{ }\NormalTok{weathersit, }\DataTypeTok{family=}\NormalTok{poisson, }\DataTypeTok{data=}\NormalTok{day)}
+\KeywordTok{summary}\NormalTok{(day.glm1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = cnt ~ season + holiday + weekday + workingday + 
+##     weathersit, family = poisson, data = day)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -78.74  -18.28   -3.11   15.92   90.47  
+## 
+## Coefficients: (1 not defined because of singularities)
+##              Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)  8.118121   0.002449 3315.40   <2e-16 ***
+## season2      0.645786   0.001793  360.25   <2e-16 ***
+## season3      0.744114   0.001756  423.85   <2e-16 ***
+## season4      0.609837   0.001820  335.04   <2e-16 ***
+## holiday1    -0.157663   0.003735  -42.22   <2e-16 ***
+## weekday1     0.058507   0.002155   27.15   <2e-16 ***
+## weekday2     0.083332   0.002098   39.73   <2e-16 ***
+## weekday3     0.087709   0.002093   41.91   <2e-16 ***
+## weekday4     0.104340   0.002079   50.18   <2e-16 ***
+## weekday5     0.114533   0.002077   55.15   <2e-16 ***
+## weekday6     0.088772   0.002086   42.56   <2e-16 ***
+## workingday1        NA         NA      NA       NA    
+## weathersit  -0.235191   0.001093 -215.26   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 668801  on 730  degrees of freedom
+## Residual deviance: 382996  on 719  degrees of freedom
+## AIC: 390418
+## 
+## Number of Fisher Scoring iterations: 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#mars}
+\NormalTok{mars_grid <-}\KeywordTok{expand.grid}\NormalTok{(}\DataTypeTok{degree =} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{,}\DataTypeTok{nprune =} \DecValTok{2}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\NormalTok{mars.fit <-}\KeywordTok{train}\NormalTok{(x, y,}\DataTypeTok{method =} \StringTok{"earth"}\NormalTok{,}\DataTypeTok{tuneGrid =}\NormalTok{ mars_grid,}\DataTypeTok{trControl =}\NormalTok{ ctrl1)}
+\KeywordTok{ggplot}\NormalTok{(mars.fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p8106_mtp_group12_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mars.fit}\OperatorTok{$}\NormalTok{bestTune}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   nprune degree
+## 9     10      1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{coef}\NormalTok{(mars.fit}\OperatorTok{$}\NormalTok{finalModel)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           (Intercept)     h(atemp-0.584608)                   yr1 
+##             1390.0991           -17182.5892             1955.9220 
+##       h(hum-0.622917)               season4 h(windspeed-0.296037) 
+##            -5284.9220             1331.0915            -9717.9681 
+##       h(weathersit-2)     h(atemp-0.249362)               season3 
+##            -1213.3876             9326.9665             1149.5032 
+##               season2 
+##              758.5902
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{bwplot}\NormalTok{(}\KeywordTok{resamples}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{mars =}\NormalTok{ mars.fit,}\DataTypeTok{gam =}\NormalTok{ gam.fit)), }\DataTypeTok{metric =} \StringTok{"RMSE"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p8106_mtp_group12_files/figure-latex/unnamed-chunk-7-2.pdf}
+
+\section{Linear Model (less flexibility but more
+interpretability)}\label{linear-model-less-flexibility-but-more-interpretability}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x_}\DecValTok{1}\NormalTok{ =}\StringTok{ }
+\StringTok{  }\NormalTok{day }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{( casual, registered, cnt))}
+
+\NormalTok{x_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(}\OperatorTok{~}\NormalTok{., x_}\DecValTok{1}\NormalTok{)}
+
+\NormalTok{ridge.mod <-}\KeywordTok{glmnet}\NormalTok{(x_}\DecValTok{1}\NormalTok{, y, }\DataTypeTok{alpha=}\DecValTok{0}\NormalTok{, }\DataTypeTok{lambda =}\KeywordTok{exp}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DataTypeTok{length=}\DecValTok{100}\NormalTok{)))}
+\NormalTok{ridge.mod}\OperatorTok{$}\NormalTok{lambda}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   [1] 2.202647e+04 1.971015e+04 1.763742e+04 1.578265e+04 1.412294e+04
+##   [6] 1.263776e+04 1.130876e+04 1.011953e+04 9.055351e+03 8.103084e+03
+##  [11] 7.250958e+03 6.488442e+03 5.806113e+03 5.195539e+03 4.649172e+03
+##  [16] 4.160262e+03 3.722766e+03 3.331277e+03 2.980958e+03 2.667478e+03
+##  [21] 2.386965e+03 2.135950e+03 1.911332e+03 1.710335e+03 1.530475e+03
+##  [26] 1.369529e+03 1.225508e+03 1.096633e+03 9.813105e+02 8.781152e+02
+##  [31] 7.857720e+02 7.031397e+02 6.291970e+02 5.630302e+02 5.038216e+02
+##  [36] 4.508394e+02 4.034288e+02 3.610039e+02 3.230405e+02 2.890694e+02
+##  [41] 2.586706e+02 2.314687e+02 2.071272e+02 1.853456e+02 1.658545e+02
+##  [46] 1.484132e+02 1.328059e+02 1.188400e+02 1.063427e+02 9.515961e+01
+##  [51] 8.515256e+01 7.619786e+01 6.818484e+01 6.101447e+01 5.459815e+01
+##  [56] 4.885657e+01 4.371878e+01 3.912128e+01 3.500726e+01 3.132588e+01
+##  [61] 2.803162e+01 2.508380e+01 2.244597e+01 2.008554e+01 1.797333e+01
+##  [66] 1.608324e+01 1.439192e+01 1.287845e+01 1.152415e+01 1.031226e+01
+##  [71] 9.227814e+00 8.257411e+00 7.389056e+00 6.612018e+00 5.916694e+00
+##  [76] 5.294490e+00 4.737718e+00 4.239496e+00 3.793668e+00 3.394723e+00
+##  [81] 3.037732e+00 2.718282e+00 2.432425e+00 2.176630e+00 1.947734e+00
+##  [86] 1.742909e+00 1.559623e+00 1.395612e+00 1.248849e+00 1.117519e+00
+##  [91] 1.000000e+00 8.948393e-01 8.007374e-01 7.165313e-01 6.411804e-01
+##  [96] 5.737534e-01 5.134171e-01 4.594258e-01 4.111123e-01 3.678794e-01
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{coef}\NormalTok{(ridge.mod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 30 x 100 sparse Matrix of class "dgCMatrix"
+\end{verbatim}
+
+\begin{verbatim}
+##    [[ suppressing 100 column names 's0', 's1', 's2' ... ]]
+\end{verbatim}
+
+\begin{verbatim}
+##                                                                 
+## (Intercept) 4131.24927804 4098.3820999 4063.5981997 4026.9421100
+## (Intercept)    .             .            .            .        
+## season2       49.70046935   54.7296365   60.1878725   66.0972119
+## season3       96.75567490  104.5306757  112.6011091  120.9227780
+## season4       35.76005030   40.6846012   46.2651260   52.5728681
+## yr1          175.36056978  193.9250786  214.2228180  236.3660860
+## mnth2       -139.74276471 -152.4298446 -165.8980673 -180.1259710
+## mnth3        -57.88250617  -62.6689733  -67.6446554  -72.7755495
+## mnth4          2.67347607    3.3923084    4.2591254    5.2971321
+## mnth5         67.51025325   74.0263576   81.0343980   88.5468319
+## mnth6         93.52538495  101.7416736  110.4136273  119.5186667
+## mnth7         66.43725423   70.9631037   75.4693668   79.8875254
+## mnth8         80.65836691   87.2497915   94.1222057  101.2459205
+## mnth9         99.85183309  109.5004463  119.8976274  131.0721840
+## mnth10        65.12823033   72.3715833   80.3344850   89.0643371
+## mnth11       -10.63054645  -10.6934150  -10.5902967  -10.2891552
+## mnth12       -78.50017010  -85.0810333  -91.9621724  -99.1120217
+## holiday1     -59.06206016  -64.9058093  -71.2223646  -78.0308695
+## weekday1     -14.70540970  -16.1690167  -17.7489931  -19.4484597
+## weekday2      -0.04923267   -0.1087851   -0.1817517   -0.2695895
+## weekday3       3.56305332    3.8952451    4.2525118    4.6362599
+## weekday4      13.89349152   15.2331414   16.6730214   18.2153254
+## weekday5      16.90746111   18.6537005   20.5545269   22.6184749
+## weekday6       7.24899557    8.3258550    9.5645951   10.9874158
+## workingday1   18.62879752   20.4463506   22.4091681   24.5239566
+## weathersit   -79.27161376  -87.1324846  -95.6268429 -104.7782125
+## temp         457.44315319  498.7918781  542.7465224  589.2832328
+## atemp        517.99530393  564.9493284  614.8882933  667.7903865
+## hum         -115.81813012 -128.6670392 -142.8125309 -158.3511352
+## windspeed   -425.91001071 -466.7876859 -510.7150636 -557.7657081
+##                                                                
+## (Intercept) 3988.4819277 3948.3089326 3906.5361807 3863.2960485
+## (Intercept)    .            .            .            .        
+## season2       72.4783392   79.3501680   86.7293932   94.6300480
+## season3      129.4427318  138.1001930  146.8276127  155.5521645
+## season4       59.6817246   67.6669221   76.6034875   86.5644778
+## yr1          260.4640343  286.6200875  314.9289796  345.4734327
+## mnth2       -195.0772798 -210.6993092 -226.9215573 -243.6545968
+## mnth3        -78.0186027  -83.3211500  -88.6205099  -93.8438318
+## mnth4          6.5316596    7.9899167    9.7006971   11.6939816
+## mnth5         96.5721812  105.1143431  114.1719934  123.7380583
+## mnth6        129.0249475  138.8907936  149.0644447  159.4841253
+## mnth7         84.1401921   88.1420005   91.8010625   95.0209615
+## mnth8        108.5853602  116.0996156  123.7433479  131.4680197
+## mnth9        143.0501091  155.8541457  169.5033753  184.0128155
+## mnth10        98.6054257  108.9972190  120.2724341  132.4549525
+## mnth11        -9.7569741   -8.9607578   -7.8687732   -6.4519664
+## mnth12      -106.4904808 -114.0486580 -121.7288785 -129.4649783
+## holiday1     -85.3478427  -93.1864958 -101.5559967 -110.4606833
+## weekday1     -21.2692572  -23.2116498  -25.2740130  -27.4525190
+## weekday2      -0.3735946   -0.4947878   -0.6337841   -0.7906468
+## weekday3       5.0480523    5.4896656    5.9631499    6.4708899
+## weekday4      19.8613198   21.6112086   23.4640026   25.4174083
+## weekday5      24.8535402   27.2669688   29.8650204   32.6527202
+## weekday6      12.6186778   14.4848510   16.6144003   19.0375892
+## workingday1   26.7971776   29.2350163   31.8433655   34.6278193
+## weathersit  -114.6058823 -125.1239212 -136.3401714 -148.2552453
+## temp         638.3473519  689.8518861  743.6770086  799.6705941
+## atemp        723.5989889  782.2209058  843.5256287  907.3457230
+## hum         -175.3779785 -193.9844557 -214.2555262 -236.2666790
+## windspeed   -607.9888384 -661.4057174 -718.0063151 -777.7463713
+##                                                               
+## (Intercept) 3818.7367654 3773.018061 3726.3061444  3678.768316
+## (Intercept)    .            .           .             .       
+## season2      103.0630827  112.035988  121.5524882   131.612330
+## season3      164.1976490  172.686747  180.9435305   188.896107
+## season4       97.6190274  109.830294  123.2534069   137.933525
+## yr1          378.3205310  413.517877  451.0896465   491.032711
+## mnth2       -260.7893620 -278.196926 -295.7288588  -313.218254
+## mnth3        -98.9082474 -103.721373 -108.1821985  -112.182390
+## mnth4         14.0004368   16.650818   19.6752906    23.102692
+## mnth5        133.7992861  144.335952  155.3217333   166.723779
+## mnth6        170.0784902  180.767488  191.4636752   202.073987
+## mnth7         97.7032705   99.750542  101.0696857   101.575611
+## mnth8        139.2234212  146.959436  154.6279717   162.184953
+## mnth9        199.3930126  215.649610  232.7828740   250.787165
+## mnth10       145.5576629  159.580330  174.5076142   190.307375
+## mnth11        -4.6854950   -2.550295   -0.0345887     2.864777
+## mnth12      -137.1829063 -144.801645 -152.2344520  -159.390398
+## holiday1    -119.8992347 -129.863816 -140.3392173  -151.302022
+## weekday1     -29.7408353  -32.129854  -34.6074761   -37.158476
+## weekday2      -0.9647328   -1.154536   -1.3575407    -1.570093
+## weekday3       7.0156616    7.600679    8.2296249     8.906650
+## weekday4      27.4677441   29.609894   31.8373051    34.142041
+## weekday5      35.6336072   38.809489   42.1802139    45.743475
+## weekday6      21.7861917   24.893104   28.3918544    32.316005
+## workingday1   37.5936737   40.745928   44.0892767    47.628093
+## weathersit  -160.8615634 -174.142479 -188.0715392  -202.611942
+## temp         857.6498462  917.404018  978.6981571  1041.277742
+## atemp        973.4784018 1041.688268 1111.7111179  1183.258606
+## hum         -260.0806496 -285.744008 -313.2837761  -342.704258
+## windspeed   -840.5449909 -906.282897 -974.8014471 -1045.902509
+##                                                               
+## (Intercept)  3630.569368  3581.867240  3532.80302  3483.503683
+## (Intercept)     .            .            .           .       
+## season2       142.239542   153.383650   165.05119   177.227096
+## season3       196.476746   203.645693   210.35370   216.573129
+## season4       153.893139   171.166251   189.75297   209.644645
+## yr1           533.315196   577.865712   624.58102   673.318478
+## mnth2        -330.501685  -347.352251  -363.57423  -378.952572
+## mnth3        -115.617991  -118.358611  -120.29196  -121.302169
+## mnth4          26.956662    31.262799    36.03989    41.302865
+## mnth5         178.515000   190.630234   203.02838   215.655445
+## mnth6         212.526943   222.685525   232.47167   241.795212
+## mnth7         101.233274    99.924454    97.63568    94.348755
+## mnth8         169.622525   176.862997   183.90531   190.738036
+## mnth9         269.669432   289.381117   309.90771   331.213461
+## mnth10        206.932967   224.312627   242.36065   260.972342
+## mnth11          6.130300     9.763847    13.73029    17.992456
+## mnth12       -166.192680  -172.521782  -178.29699  -183.430505
+## holiday1     -162.722811  -174.555053  -186.74869  -199.241418
+## weekday1      -39.763548   -42.402545   -45.05057   -47.680887
+## weekday2       -1.785477    -2.000103    -2.20533    -2.392412
+## weekday3        9.637660    10.425894    11.27742    12.197713
+## weekday4       36.515908    38.947414    41.42597    43.939912
+## weekday5       49.493981    53.426116    57.52991    61.793653
+## weekday6       36.696952    41.567955    46.95721    52.890392
+## workingday1    51.368148    55.310033    59.45791    63.813889
+## weathersit   -217.720623  -233.332476  -249.38207  -265.791311
+## temp         1104.879678  1169.202446  1233.97031  1298.898249
+## atemp        1255.994604  1329.637939  1403.84247  1478.276493
+## hum          -373.980163  -407.068456  -441.88884  -478.334367
+## windspeed   -1119.347096 -1194.863787 -1272.14347 -1350.847510
+##                                                               
+## (Intercept)  3434.078689  3384.61976  3335.202327  3285.888475
+## (Intercept)     .            .           .            .       
+## season2       189.892995   203.02769   216.607829   230.608704
+## season3       222.291457   227.51198   232.253949   236.552298
+## season4       230.818553   253.23872   276.857141   301.615352
+## yr1           723.897053   776.09839   829.669267   884.325640
+## mnth2        -393.269736  -406.31087  -417.869368  -427.752701
+## mnth3        -121.278096  -120.11643  -117.724766  -114.024555
+## mnth4          47.061610    53.32058    60.078468    67.328029
+## mnth5         228.454682   241.36810   254.338189   267.309706
+## mnth6         250.574116   258.73769   266.229630   273.010759
+## mnth7          90.068544    84.82434    78.670416    71.685700
+## mnth8         197.360007   203.78046   210.018749   216.103759
+## mnth9         353.253231   375.97203   399.304954   423.177549
+## mnth10        280.026633   299.38840   318.911450   338.442193
+## mnth11         22.503793    27.20950    32.047999    36.952557
+## mnth12       -187.840762  -191.45478  -194.210436  -196.058550
+## holiday1     -211.960797  -224.82472  -237.742371  -250.615692
+## weekday1      -50.264888   -52.77288   -55.174916   -57.441780
+## weekday2       -2.551554    -2.67214    -2.743026    -2.752884
+## weekday3       13.192170    14.26591    15.423512    16.668794
+## weekday4       46.477305    49.02627    51.575298    54.113615
+## weekday5       66.203411    70.74321    75.395312    80.140485
+## weekday6       59.388888    66.46885    74.140207    82.405748
+## workingday1    68.379026    73.15308    78.134224    83.318688
+## weathersit   -282.473532  -299.33496  -316.276564  -333.196152
+## temp         1363.707236  1428.12886  1491.909100  1554.810896
+## atemp        1552.611127  1626.52415  1699.702629  1771.844088
+## hum          -516.269863  -555.53396  -595.942154  -637.290748
+## windspeed   -1430.611451 -1511.05051 -1591.765758 -1672.350812
+##                                                                
+## (Intercept)  3236.731386  3187.922156  3139.293350  3090.989682
+## (Intercept)     .            .            .            .       
+## season2       245.005105   259.911966   275.064156   290.540084
+## season3       240.457107   244.161311   247.559299   250.809472
+## season4       327.446228   354.196535   381.919786   410.480340
+## yr1           939.758034   995.650484  1051.642036  1107.399629
+## mnth2        -435.788210  -441.934992  -445.889164  -447.645386
+## mnth3        -108.953877  -102.537586   -94.639855   -85.306479
+## mnth4          75.055988    83.188686    91.784111   100.779381
+## mnth5         280.231538   293.085030   305.772280   318.291572
+## mnth6         279.061281   284.475224   289.093724   293.039357
+## mnth7          63.972599    55.802781    47.028666    37.930125
+## mnth8         222.072945   228.088819   233.969861   239.869034
+## mnth9         447.506586   472.286083   497.255603   522.383214
+## mnth10        357.823773   376.969848   395.619759   413.677443
+## mnth11         41.853145    46.669852    51.359692    55.839155
+## mnth12       -196.964819  -196.964831  -195.954285  -193.995780
+## holiday1     -263.341224  -275.825053  -287.939129  -299.588248
+## weekday1      -59.545982   -61.456603   -63.162104   -64.641623
+## weekday2       -2.690588    -2.533877    -2.292686    -1.950702
+## weekday3       18.004556    19.442036    20.965827    22.581173
+## weekday4       56.631417    59.129922    61.586050    64.000521
+## weekday5       84.958384    89.830117    94.732322    99.644082
+## weekday6       91.260306   100.679236   110.656872   121.153779
+## workingday1    88.700490    94.274790   100.021342   105.929694
+## weathersit   -349.990732  -366.575867  -382.821347  -398.650277
+## temp         1616.615284  1676.833372  1735.673570  1792.807543
+## atemp        1842.656439  1911.670784  1978.979362  2044.170648
+## hum          -679.361404  -721.882980  -764.696423  -807.538867
+## windspeed   -1752.398941 -1831.494034 -1909.281944 -1985.385044
+##                                                                   
+## (Intercept)  3043.077269  2995.6367256  2948.7656997  2902.5791912
+## (Intercept)     .            .             .             .        
+## season2       306.315531   322.3679045   338.6761660   355.2202599
+## season3       254.008112   257.2582534   260.6684010   264.3505032
+## season4       439.797524   469.7910059   500.3818224   531.4931562
+## yr1          1162.586326  1216.8789764  1269.9757460  1321.6026039
+## mnth2        -447.154022  -444.4035989  -439.4209743  -432.2699753
+## mnth3         -74.557061   -62.4326828   -48.9949116   -34.3239910
+## mnth4         110.140877   119.8314379   129.8109737   140.0373542
+## mnth5         330.622294   342.7543365   354.6879068   366.4329195
+## mnth6         296.373048   299.1746434   301.5399102   303.5768675
+## mnth7          28.666708    19.4036973    10.3066690     1.5359905
+## mnth8         245.836826   251.9240647   258.1794666   264.6471722
+## mnth9         547.561741   572.6842351   597.6457280   622.3447141
+## mnth10        431.013616   447.5149210   463.0863069   477.6523746
+## mnth11         60.042116    63.9061123    67.3732680    70.3909568
+## mnth12       -191.123252  -187.3883708  -182.8592604  -177.6186482
+## holiday1     -310.673306  -321.1033728  -330.7982796  -339.6908090
+## weekday1      -65.883427   -66.8812016   -67.6341754   -68.1469845
+## weekday2       -1.501751    -0.9417394    -0.2688447     0.5163659
+## weekday3       24.285050    26.0727703    27.9380408    29.8730558
+## weekday4       66.368703    68.6871970    70.9536791    73.1666959
+## weekday5      104.544194   109.4119463   114.2273846   118.9715408
+## weekday6      132.128447   143.5304015   155.3008280   167.3735448
+## workingday1   111.982131   118.1579267   124.4334608   130.7824650
+## weathersit   -413.979369  -428.7355609  -442.8573595  -456.2957254
+## temp         1848.076488  1901.3325220  1952.4338068  2001.2408973
+## atemp        2106.999653  2167.2275802  2224.6234575  2278.9679038
+## hum          -850.183564  -892.4116607  -934.0148786  -974.7975383
+## windspeed   -2059.466413 -2131.2213635 -2200.3816609 -2266.7185671
+##                                                               
+## (Intercept)  2857.207589  2812.792710  2769.482508  2727.42525
+## (Intercept)     .            .            .            .      
+## season2       371.980062   388.934064   406.058083   423.32428
+## season3       268.417276   272.978892   278.139304   283.99265
+## season4       563.050904   594.983976   627.224289   659.70644
+## yr1          1371.518467  1419.518846  1465.437934  1509.14921
+## mnth2        -423.048592  -411.885028  -398.932967  -384.36642
+## mnth3         -18.516341    -1.681564    16.060781    34.58440
+## mnth4         150.467531   161.058817   171.770155   182.56319
+## mnth5         378.007972   389.439016   400.757814   412.00021
+## mnth6         305.401569   307.133734   308.892582   310.79307
+## mnth7          -6.758544   -14.442386   -21.399752   -27.53582
+## mnth8         271.364329   278.359115   285.649506   293.24289
+## mnth9         646.684242   670.572796   693.925140   716.66320
+## mnth10        491.157613   503.565651   514.857781   525.03107
+## mnth11         72.912193    74.895780    76.306303    77.11408
+## mnth12       -171.761516  -165.392428  -158.622698  -151.56748
+## holiday1     -347.728375  -354.874098  -361.107231  -366.42293
+## weekday1      -68.429307   -68.495287   -68.362805   -68.05263
+## weekday2        1.410913     2.409476     3.504566     4.68680
+## weekday3       31.868643    33.914454    35.999198    38.11092
+## weekday4       75.325422    77.429419    79.478420    81.47217
+## weekday5      123.626628   128.176200   132.605282   136.90048
+## weekday6      179.676288   192.132272   204.661963   217.18497
+## workingday1   137.176395   143.584933   149.976611   156.31953
+## weathersit   -469.014487  -480.990308  -492.212263  -502.68108
+## temp         2047.615144  2091.419803  2132.523686  2170.80649
+## atemp        2330.058698  2377.716945  2421.792515  2462.16790
+## hum         -1014.578087 -1053.190226 -1090.483689 -1126.32472
+## windspeed   -2330.044607 -2390.214030 -2447.122050 -2500.70302
+##                                                                           
+## (Intercept)  2686.763874  2647.630896  2610.144218  2574.40378  2540.42662
+## (Intercept)     .            .            .            .           .      
+## season2       440.700649   458.150892   475.634692   493.10813   510.14609
+## season3       290.620132   298.087540   306.443576   315.71876   324.86166
+## season4       692.367141   725.144536   757.977476   790.80485   823.32277
+## yr1          1550.564654  1589.632825  1626.335951  1660.68636  1692.73290
+## mnth2        -368.374459  -351.155958  -332.914623  -313.85432  -294.35452
+## mnth3          53.759284    73.454443    93.540285   113.89065   134.35903
+## mnth4         193.402972   204.258290   215.101608   225.90875   236.87157
+## mnth5         423.204264   434.408218   445.648483   456.95765   468.54339
+## mnth6         312.942596   315.438202   318.364172   321.79010   326.16114
+## mnth7         -32.777706   -37.074511   -40.396714   -42.73514   -43.34723
+## mnth8         301.136401   309.317645   317.765732   326.45229   336.04061
+## mnth9         738.716891   760.024817   780.534633   800.20314   819.50414
+## mnth10        534.096320   542.075948   549.001987   554.91413   559.87546
+## mnth11         77.295173    76.831473    75.710911    73.92770    71.47437
+## mnth12       -144.342910  -137.063288  -129.838481  -122.77153  -116.01696
+## holiday1     -370.831452  -374.356785  -377.034963  -378.91208  -379.96015
+## weekday1      -67.587540   -66.991398   -66.288343   -65.50201   -64.74837
+## weekday2        5.945248     7.267848     8.641833    10.05415    11.40995
+## weekday3       40.237289    42.365961    44.484847    46.58242    48.56582
+## weekday4       83.410354    85.292524    87.118155    88.88667    90.53093
+## weekday5      141.050048   145.044012   148.874179   152.53420   155.93249
+## weekday6      229.621980   241.896607   253.937113   265.67789   277.10130
+## workingday1   162.582125   168.733943   174.746357   180.59320   186.35769
+## weathersit   -512.408122  -521.414101  -529.727656  -537.38378  -544.53103
+## temp         2206.164680  2238.516862  2267.808231  2294.01373  2319.06337
+## atemp        2498.760299  2531.522370  2560.442088  2585.54224  2605.35916
+## hum         -1160.596323 -1193.198355 -1224.047635 -1253.07808 -1279.97642
+## windspeed   -2550.927776 -2597.800438 -2641.354886 -2681.65116 -2718.73224
+##                                                                        
+## (Intercept)  2508.57696  2478.40197  2450.29248  2424.06553  2399.70111
+## (Intercept)     .           .           .           .           .      
+## season2       528.16855   545.09708   562.41705   579.24217   595.66754
+## season3       337.87394   349.15778   362.93916   376.75565   391.23476
+## season4       856.38695   888.61864   921.16911   953.12077   984.68372
+## yr1          1722.50591  1750.11544  1775.64203  1799.18646  1820.85183
+## mnth2        -274.02959  -253.74418  -233.20778  -212.84819  -192.68780
+## mnth3         154.85453   175.31502   195.60121   215.59449   235.26542
+## mnth4         247.10258   257.83476   268.13211   278.41178   288.61061
+## mnth5         479.71097   491.48815   503.17416   515.05455   527.08286
+## mnth6         330.05331   335.51081   341.09348   347.48927   354.46615
+## mnth7         -45.03641   -43.99522   -43.11889   -40.96623   -38.12173
+## mnth8         343.89543   353.59307   362.37567   371.65685   380.90273
+## mnth9         836.50639   853.88109   869.54221   884.64766   898.81656
+## mnth10        563.84427   567.08481   569.31409   570.88640   571.73075
+## mnth11         68.32056    64.65548    60.12793    55.11849    49.54579
+## mnth12       -109.50334  -103.40780   -97.88405   -92.83113   -88.32174
+## holiday1     -380.55351  -380.31295  -379.62869  -378.40045  -376.73999
+## weekday1      -63.70594   -62.85101   -61.87137   -60.95637   -60.07018
+## weekday2       13.00105    14.40597    15.91328    17.35151    18.75227
+## weekday3       50.73022    52.65563    54.63664    56.50290    58.29184
+## weekday4       92.29897    93.85515    95.44622    96.93750    98.36102
+## weekday5      159.38746   162.46612   165.48323   168.27221   170.88171
+## weekday6      288.00009   298.55818   308.57102   318.10899   327.12752
+## workingday1   191.63061   196.91964   201.83341   206.56538   211.05043
+## weathersit   -550.84199  -556.82828  -562.24031  -567.25977  -571.87393
+## temp         2335.85544  2354.13197  2367.25870  2378.75535  2387.83944
+## atemp        2625.41839  2638.64455  2649.85089  2657.07392  2661.24896
+## hum         -1305.60604 -1328.82619 -1350.35261 -1369.87012 -1387.55565
+## windspeed   -2752.78648 -2783.89210 -2812.08570 -2837.62683 -2860.65055
+##                                                                        
+## (Intercept)  2377.31449  2356.62022  2337.62792  2320.27614  2304.47515
+## (Intercept)     .           .           .           .           .      
+## season2       612.21334   627.97999   643.21078   657.93646   672.12524
+## season3       407.21275   422.97742   439.11588   455.56335   472.19920
+## season4      1016.24424  1046.90096  1076.93358  1106.27756  1134.85585
+## yr1          1840.77190  1859.02531  1875.73536  1891.01288  1904.96281
+## mnth2        -172.80805  -153.43357  -134.59448  -116.38142   -98.86016
+## mnth3         254.50314   273.24272   291.45046   309.04914   325.99072
+## mnth4         298.43229   308.22473   317.87120   327.29190   336.45758
+## mnth5         539.10590   551.22144   563.37885   575.48453   587.47808
+## mnth6         361.85555   369.79446   378.14461   386.80153   395.67765
+## mnth7         -34.91225   -30.92131   -26.49800   -21.74079   -16.74138
+## mnth8         389.76547   398.77533   407.60158   416.18569   424.48293
+## mnth9         911.76733   924.06969   935.47988   946.00989   955.68568
+## mnth10        571.76737   571.33038   570.34618   568.87425   566.97135
+## mnth11         43.17910    36.55302    29.51730    22.12302    14.43539
+## mnth12        -84.55162   -81.22689   -78.46603   -76.26278   -74.59181
+## holiday1     -374.74523  -372.42448  -369.85464  -367.09584  -364.20048
+## weekday1      -59.15895   -58.33164   -57.55654   -56.83091   -56.15542
+## weekday2       20.18038    21.51641    22.79505    24.01966    25.18830
+## weekday3       60.06975    61.72194    63.28720    64.77117    66.17457
+## weekday4       99.78336   101.10167   102.35171   103.54077   104.67032
+## weekday5      173.38154   175.67157   177.79693   179.77033   181.59969
+## weekday6      335.59814   343.55921   350.99721   357.92188   364.34788
+## workingday1   215.22668   219.19500   222.91897   226.39878   229.64005
+## weathersit   -576.14098  -580.08111  -583.72369  -587.10145  -590.23900
+## temp         2393.78808  2398.46332  2401.23760  2402.30211  2401.91094
+## atemp        2662.36307  2660.78118  2656.91264  2650.96387  2643.17979
+## hum         -1403.38616 -1417.51951 -1430.02470 -1440.98618 -1450.50975
+## windspeed   -2881.14800 -2899.54776 -2915.90967 -2930.38291 -2943.12900
+##                                                                
+## (Intercept)  2290.129735  2277.142557  2265.415887  2254.853191
+## (Intercept)     .            .            .            .       
+## season2       685.746251   698.775352   711.195078   722.994495
+## season3       488.903722   505.561290   522.062175   538.304516
+## season4      1162.596550  1189.433086  1215.305175  1240.160036
+## yr1          1917.685463  1929.276148  1939.824770  1949.415708
+## mnth2         -82.082729   -66.088880   -50.906850   -36.554258
+## mnth3         342.235892   357.752352   372.514846   386.505168
+## mnth4         345.342208   353.919472   362.163724   370.050934
+## mnth5         599.299714   610.888746   622.185600   633.133679
+## mnth6         404.683955   413.731220   422.732600   431.605833
+## mnth7         -11.590260    -6.372986    -1.168431     3.952304
+## mnth8         432.450877   440.051694   447.253087   454.028685
+## mnth9         964.534502   972.586116   979.872861   986.429287
+## mnth10        564.690767   562.084125   559.201442   556.090805
+## mnth11          6.519671    -1.558882    -9.735851   -17.948866
+## mnth12        -73.421799   -72.716228   -72.434583   -72.533751
+## holiday1     -361.215545  -358.183206  -355.140994  -352.121846
+## weekday1      -55.530359   -54.955158   -54.428454   -53.948249
+## weekday2       26.298945    27.350215    28.341442    29.272604
+## weekday3       67.497918    68.742101    69.908472    70.998787
+## weekday4      105.741007   106.753426   107.708294   108.606478
+## weekday5      183.292379   184.855712   186.296962   187.623318
+## weekday6      370.293392   375.779202   380.827979   385.463608
+## workingday1   232.650591   235.439495   238.016721   240.392789
+## weathersit   -593.157343  -595.874473  -598.405765  -600.764346
+## temp         2400.310825  2397.741548  2394.434234  2390.608076
+## atemp        2633.812845  2623.108285  2611.298421  2598.599244
+## hum         -1458.707938 -1465.696711 -1471.593052 -1476.512702
+## windspeed   -2954.305750 -2964.065465 -2972.553872 -2979.909074
+##                                                                          
+## (Intercept)  2245.360455  2236.84722  2229.227372  2222.41966  2216.22242
+## (Intercept)     .            .           .            .           .      
+## season2       734.168944   744.71965   754.653203   763.98093   772.24835
+## season3       554.196012   569.65517   584.612093   599.00884   611.81001
+## season4      1263.953417  1286.65038  1308.225775  1328.66443  1347.06110
+## yr1          1958.127813  1966.03452  1973.204015  1979.69949  1985.54272
+## mnth2         -23.039035   -10.36038     1.490298    12.52839    22.58402
+## mnth3         399.712067   412.13108   423.764259   434.61985   444.52627
+## mnth4         377.559523   384.67109   391.371006   397.64889   403.47506
+## mnth5         643.680989   653.78149   663.396125   672.49356   680.83436
+## mnth6         440.275105   448.67255   456.739335   464.42639   471.48483
+## mnth7           8.926663    13.70114    18.231479    22.48265    26.43603
+## mnth8         460.358273   466.22786   471.629606   476.56162   481.14329
+## mnth9         992.291781   997.49819  1002.087478  1006.09933  1009.82546
+## mnth10        552.798041   549.36640   545.836251   542.24488   539.02216
+## mnth11        -26.138711   -34.25028   -42.233329   -50.04308   -57.04118
+## mnth12        -72.969334   -73.69682   -74.672593   -75.85476   -76.84260
+## holiday1     -349.154208  -346.26217  -343.465663  -340.78069  -338.29079
+## weekday1      -53.512083   -53.11718   -52.760601   -52.43930   -52.17529
+## weekday2       30.144258    30.95746    31.713674    32.41474    33.02184
+## weekday3       72.015156    72.95998    73.835911    74.64579    75.35100
+## weekday4      109.449019   110.23714   110.972242   111.65592   112.24674
+## weekday5      188.841825   189.95934   190.982497   191.91768   192.73640
+## weekday6      389.710630   393.59378   397.137592   400.36611   403.30106
+## workingday1   242.578556   244.58503   246.423206   248.10396   249.65536
+## weathersit   -602.961484  -605.00696  -606.909419  -608.67662  -610.25739
+## temp         2386.467188  2382.19803  2377.967523  2373.92180  2370.25128
+## atemp        2585.208120  2571.30233  2557.038403  2542.55214  2529.58087
+## hum         -1480.568123 -1483.86678 -1486.509759 -1488.59077 -1490.45531
+## windspeed   -2986.260711 -2991.72933 -2996.426004 -3000.45214 -3004.12906
+##                                                                        
+## (Intercept)  2210.76475  2205.94076  2201.66642  2197.76089  2194.33880
+## (Intercept)     .           .           .           .           .      
+## season2       780.21384   787.74983   794.80572   800.90710   806.77376
+## season3       624.69384   637.11033   648.90840   658.99706   669.10299
+## season4      1364.97300  1381.95537  1397.89246  1411.78487  1425.28972
+## yr1          1990.85586  1995.66597  2000.01142  2003.89476  2007.42196
+## mnth2          32.06779    40.84061    48.91329    56.08416    62.85203
+## mnth3         453.92179   462.61596   470.60864   477.69702   484.42234
+## mnth4         409.04732   414.16859   418.83938   423.00812   427.00079
+## mnth5         688.96581   696.55356   703.55391   709.70157   715.68689
+## mnth6         478.43919   484.95990   490.97953   496.24042   501.39192
+## mnth7          30.21876    33.67991    36.77806    39.51575    42.09289
+## mnth8         485.33709   489.07338   492.35013   495.30673   497.96608
+## mnth9        1012.99478  1015.65653  1017.86274  1019.92837  1021.60810
+## mnth10        535.60207   532.11622   528.64208   525.65996   522.57642
+## mnth11        -64.16936   -71.16830   -77.92406   -83.73933   -89.59238
+## mnth12        -78.17583   -79.69694   -81.31715   -82.60593   -84.10455
+## holiday1     -335.85713  -333.54530  -331.37537  -329.44372  -327.56920
+## weekday1      -51.93480   -51.71586   -51.51699   -51.35551   -51.21017
+## weekday2       33.59818    34.13572    34.63207    35.05300    35.44960
+## weekday3       76.01862    76.63893    77.20984    77.69664    78.15475
+## weekday4      112.81220   113.34236   113.83344   114.24811   114.64163
+## weekday5      193.49588   194.19280   194.82833   195.37715   195.88355
+## weekday6      405.96680   408.38666   410.57895   412.55752   414.34773
+## workingday1   251.06958   252.35536   253.52105   254.58692   255.55538
+## weathersit   -611.75770  -613.16100  -614.45963  -615.59968  -616.67433
+## temp         2366.07059  2362.35534  2359.34103  2357.05419  2354.52018
+## atemp        2516.12531  2502.39706  2488.58810  2476.63119  2464.43400
+## hum         -1491.71529 -1492.57430 -1493.15044 -1493.77684 -1494.05323
+## windspeed   -3007.10621 -3009.59652 -3011.71739 -3013.76547 -3015.37820
+##                                                                        
+## (Intercept)  2191.34567  2188.71695  2186.30370  2184.18541  2182.35404
+## (Intercept)     .           .           .           .           .      
+## season2       812.32126   817.50901   821.86984   826.06878   830.04721
+## season3       678.79303   687.92654   695.42551   702.92955   710.13174
+## season4      1438.04614  1449.94383  1459.96072  1469.71462  1478.93019
+## yr1          2010.61124  2013.48653  2016.03906  2018.35487  2020.44825
+## mnth2          69.06945    74.74096    79.63639    84.29119    88.55673
+## mnth3         490.59673   496.21041   501.03709   505.64375   509.86061
+## mnth4         430.61880   433.84884   436.61974   439.29416   441.70001
+## mnth5         721.20667   726.20724   730.41358   734.52648   738.30339
+## mnth6         506.15120   510.44865   514.03229   517.54373   520.76741
+## mnth7          44.38528    46.35548    48.02072    49.57443    50.92054
+## mnth8         500.26296   502.19194   503.89834   505.40784   506.66188
+## mnth9        1022.92503  1023.91865  1024.90245  1025.64075  1026.13532
+## mnth10        519.47938   516.43246   513.92627   511.37558   508.83409
+## mnth11        -95.30034  -100.76379  -105.28314  -109.79511  -114.18634
+## mnth12        -85.71380   -87.35696   -88.61243   -89.98022   -91.41402
+## holiday1     -325.80754  -324.17573  -322.78145  -321.42494  -320.15558
+## weekday1      -51.07841   -50.95844   -50.86256   -50.77693   -50.69975
+## weekday2       35.81785    36.15607    36.43631    36.69866    36.94174
+## weekday3       78.57863    78.96645    79.28956    79.59181    79.87087
+## weekday4      115.00927   115.34788   115.62684   115.88896   116.13348
+## weekday5      196.34675   196.76732   197.12518   197.45316   197.75230
+## weekday6      415.96649   417.42752   418.73472   419.91837   420.98554
+## workingday1   256.43277   257.22453   257.94159   258.59324   259.18259
+## weathersit   -617.68066  -618.60947  -619.41212  -620.15827  -620.85886
+## temp         2352.49522  2351.22916  2350.60500  2349.86609  2349.51495
+## atemp        2452.12920  2439.83653  2429.54965  2419.13328  2408.67223
+## hum         -1494.10088 -1494.01833 -1494.10012 -1494.00337 -1493.76877
+## windspeed   -3016.69750 -3017.81857 -3018.99798 -3019.91611 -3020.64990
+##                                                                        
+## (Intercept)  2180.76369  2179.30150  2177.99763  2176.88332  2175.92985
+## (Intercept)     .           .           .           .           .      
+## season2       833.77606   836.79856   839.72730   842.51397   845.13984
+## season3       716.90712   722.21470   727.53801   732.68317   737.54590
+## season4      1487.51142  1494.44106  1501.23305  1507.68047  1513.70444
+## yr1          2022.33375  2023.99664  2025.50301  2026.86559  2028.09341
+## mnth2          92.42794    95.64574    98.75853   101.61988   104.21459
+## mnth3         513.66784   516.81960   519.87004   522.67203   525.19788
+## mnth4         443.81128   445.54299   447.24325   448.77717   450.11036
+## mnth5         741.68414   744.39461   747.07556   749.55064   751.75879
+## mnth6         523.63557   525.90962   528.15792   530.22971   532.06376
+## mnth7          52.02739    52.92233    53.76258    54.47118    55.02315
+## mnth8         507.65355   508.52780   509.29395   509.89522   510.32454
+## mnth9        1026.41359  1026.77753  1027.00053  1027.06623  1026.99178
+## mnth10        506.34723   504.39848   502.42974   500.47334   498.55808
+## mnth11       -118.37997  -121.69797  -124.99745  -128.21632  -131.30133
+## mnth12        -92.85625   -93.91109   -95.01595   -96.16404   -97.31806
+## holiday1     -318.98712  -318.03857  -317.09966  -316.21976  -315.40960
+## weekday1      -50.62940   -50.57479   -50.52571   -50.48184   -50.44194
+## weekday2       37.16440    37.34410    37.51161    37.66687    37.80924
+## weekday3       80.12524    80.33189    80.52416    80.70173    80.86359
+## weekday4      116.35810   116.53862   116.70625   116.86277   117.00687
+## weekday5      198.02292   198.24986   198.45624   198.64404   198.81361
+## weekday6      421.94646   422.79256   423.56756   424.26455   424.89127
+## workingday1   259.71330   260.18687   260.62081   261.01292   261.36602
+## weathersit   -621.50621  -622.06027  -622.56379  -623.03794  -623.47869
+## temp         2349.78109  2350.38842  2350.93894  2351.71381  2352.89759
+## atemp        2398.24103  2389.87502  2381.42465  2372.94566  2364.48650
+## hum         -1493.47116 -1493.35769 -1493.17620 -1492.90469 -1492.59175
+## windspeed   -3021.27088 -3021.99202 -3022.56216 -3023.00889 -3023.38063
+##                                                                        
+## (Intercept)  2175.11222  2174.36083  2173.65954  2173.06449  2172.56573
+## (Intercept)     .           .           .           .           .      
+## season2       847.59568   849.46567   851.29687   853.04848   854.71027
+## season3       742.08511   745.39798   748.72125   751.96654   755.06607
+## season4      1519.27739  1523.48881  1527.65712  1531.64612  1535.40156
+## yr1          2029.19665  2030.16144  2031.03244  2031.82073  2032.53216
+## mnth2         106.55215   108.37716   110.19833   111.89108   113.43271
+## mnth3         527.45210   529.21074   530.95549   532.57639   534.04445
+## mnth4         451.24385   452.11739   453.00207   453.81241   454.51588
+## mnth5         753.68943   755.13373   756.58846   757.95220   759.17652
+## mnth6         533.64426   534.80830   535.97858   537.07090   538.04135
+## mnth7          55.41272    55.70734    55.99611    56.22174    56.36705
+## mnth8         510.58690   510.84500   511.06978   511.20988   511.25806
+## mnth9        1026.79577  1026.76451  1026.67747  1026.50687  1026.25923
+## mnth10        496.70575   495.35965   494.00873   492.67006   491.35737
+## mnth11       -134.22087  -136.37675  -138.51005  -140.59681  -142.60987
+## mnth12        -98.45053   -99.22492  -100.00251  -100.80185  -101.60761
+## holiday1     -314.67262  -314.12541  -313.56153  -313.02917  -312.53669
+## weekday1      -50.40515   -50.37933   -50.35397   -50.33143   -50.31104
+## weekday2       37.93866    38.03855    38.13180    38.21825    38.29780
+## weekday3       81.00966    81.12402    81.22970    81.32726    81.41642
+## weekday4      117.13793   117.23976   117.33252   117.41895   117.49892
+## weekday5      198.96567   199.09103   199.20367   199.30566   199.39757
+## weekday6      425.45399   425.93009   426.38252   426.78898   427.15381
+## workingday1   261.68272   261.95570   262.21278   262.44498   262.65416
+## weathersit   -623.88336  -624.22573  -624.52608  -624.80741  -625.07111
+## temp         2354.55999  2356.09216  2357.60657  2359.20010  2360.98160
+## atemp        2356.08632  2349.79362  2343.46109  2337.11924  2330.79519
+## hum         -1492.27089 -1492.11274 -1491.96187 -1491.76302 -1491.53299
+## windspeed   -3023.71021 -3024.13824 -3024.49747 -3024.78283 -3025.01724
+##                                                                        
+## (Intercept)  2172.14854  2171.77864  2171.39750  2171.06478  2170.78783
+## (Intercept)     .           .           .           .           .      
+## season2       856.27664   857.35030   858.42670   859.47056   860.47199
+## season3       757.98372   759.89485   761.81818   763.72958   765.59425
+## season4      1538.89926  1541.27415  1543.67811  1546.02196  1548.26592
+## yr1          2033.17223  2033.72806  2034.22685  2034.67822  2035.08673
+## mnth2         114.82349   115.78891   116.81074   117.79140   118.70100
+## mnth3         535.35519   536.27751   537.23704   538.15633   539.00686
+## mnth4         455.10448   455.51567   455.95795   456.38284   456.76510
+## mnth5         760.24398   760.96769   761.71911   762.45083   763.13031
+## mnth6         538.87136   539.42437   540.00143   540.56189   541.07797
+## mnth7          56.42557    56.46843    56.53665    56.58667    56.60309
+## mnth8         511.21526   511.23534   511.26707   511.26582   511.22026
+## mnth9        1025.94459  1025.82329  1025.69469  1025.52637  1025.31537
+## mnth10        490.08258   489.26010   488.42985   487.60142   486.78163
+## mnth11       -144.52900  -145.80329  -147.07074  -148.32185  -149.54557
+## mnth12       -102.40351  -102.89601  -103.37347  -103.86177  -104.36051
+## holiday1     -312.08699  -311.80952  -311.48993  -311.17751  -310.88339
+## weekday1      -50.29224   -50.28443   -50.27175   -50.26030   -50.25011
+## weekday2       38.37040    38.41959    38.46964    38.51616    38.55931
+## weekday3       81.49702    81.55563    81.61146    81.66308    81.71064
+## weekday4      117.57205   117.62735   117.67636   117.72170   117.76400
+## weekday5      199.47981   199.54693   199.60662   199.66031   199.70868
+## weekday6      427.48113   427.73105   427.99159   428.22986   428.44376
+## workingday1   262.84202   262.99066   263.14146   263.27946   263.40405
+## weathersit   -625.31560  -625.52112  -625.69648  -625.85661  -626.00710
+## temp         2363.01322  2364.51214  2366.00450  2367.49619  2369.03312
+## atemp        2324.51153  2320.32673  2316.11520  2311.89171  2307.67021
+## hum         -1491.29293 -1491.16590 -1491.07615 -1490.96955 -1490.83873
+## windspeed   -3025.22162 -3025.49256 -3025.73550 -3025.93488 -3026.09597
+##                                                                        
+## (Intercept)  2170.56162  2170.37915  2170.23388  2170.12016  2170.03323
+## (Intercept)     .           .           .           .           .      
+## season2       861.42737   862.33486   863.19358   864.00348   864.76527
+## season3       767.38581   769.08750   770.69016   772.19006   773.58719
+## season4      1550.38963  1552.38259  1554.24051  1555.96333  1557.55397
+## yr1          2035.45575  2035.78831  2036.08732  2036.35558  2036.59576
+## mnth2         119.53160   120.28316   120.95889   121.56338   122.10185
+## mnth3         539.77828   540.46832   541.07875   541.61349   542.07761
+## mnth4         457.09266   457.36116   457.57076   457.72416   457.82541
+## mnth5         763.73924   764.26897   764.71715   765.08532   765.37741
+## mnth6         541.53296   541.91804   542.22991   542.46898   542.63809
+## mnth7          56.57951    56.51320    56.40362    56.25186    56.06021
+## mnth8         511.12828   510.99063   510.80939   510.58747   510.32839
+## mnth9        1025.06523  1024.78080  1024.46694  1024.12827  1023.76912
+## mnth10        485.97620   485.19011   484.42745   483.69140   482.98419
+## mnth11       -150.73120  -151.87021  -152.95649  -153.98624  -154.95756
+## mnth12       -104.86315  -105.36261  -105.85288  -106.32928  -106.78847
+## holiday1     -310.61074  -310.36064  -310.13332  -309.92841  -309.74514
+## weekday1      -50.24089   -50.23236   -50.22431   -50.21659   -50.20905
+## weekday2       38.59913    38.63564    38.66891    38.69906    38.72622
+## weekday3       81.75414    81.79357    81.82897    81.86047    81.88826
+## weekday4      117.80328   117.83943   117.87240   117.90217   117.92883
+## weekday5      199.75211   199.79086   199.82519   199.85536   199.88167
+## weekday6      428.63551   428.80742   428.96144   429.09929   429.22251
+## workingday1   263.51627   263.61715   263.70755   263.78831   263.86020
+## weathersit   -626.14888  -626.28159  -626.40480  -626.51831  -626.62217
+## temp         2370.65694  2372.39592  2374.26541  2376.27057  2378.40914
+## atemp        2303.46282  2299.27984  2295.12990  2291.02023  2286.95684
+## hum         -1490.69055 -1490.53415 -1490.37728 -1490.22567 -1490.08319
+## windspeed   -3026.22884 -3026.34317 -3026.44679 -3026.54559 -3026.64377
+##                                                                        
+## (Intercept)  2169.96906  2169.92429  2169.89605  2169.88193  2169.87985
+## (Intercept)     .           .           .           .           .      
+## season2       865.48026   866.15022   866.77722   867.36348   867.91133
+## season3       774.88396   776.08432   777.19314   778.21579   779.15779
+## season4      1559.01736  1560.35975  1561.58821  1562.71018  1563.73322
+## yr1          2036.81040  2037.00190  2037.17248  2037.32418  2037.45888
+## mnth2         122.57970   123.00228   123.37474   123.70197   123.98853
+## mnth3         542.47669   542.81647   543.10261   543.34058   543.53554
+## mnth4         457.87921   457.89050   457.86418   457.80499   457.71741
+## mnth5         765.59870   765.75519   765.85314   765.89881   765.89825
+## mnth6         542.74165   542.78496   542.77373   542.71386   542.61111
+## mnth7          55.83182    55.57039    55.27991    54.96447    54.62809
+## mnth8         510.03607   509.71463   509.36824   509.00101   508.61685
+## mnth9        1023.39353  1023.00522  1022.60761  1022.20381  1021.79658
+## mnth10        482.30726   481.66135   481.04666   480.46295   479.90963
+## mnth11       -155.87004  -156.72444  -157.52233  -158.26585  -158.95751
+## mnth12       -107.22819  -107.64706  -108.04438  -108.41998  -108.77407
+## holiday1     -309.58244  -309.43904  -309.31357  -309.20463  -309.11082
+## weekday1      -50.20163   -50.19425   -50.18688   -50.17949   -50.17208
+## weekday2       38.75059    38.77236    38.79174    38.80893    38.82414
+## weekday3       81.91257    81.93365    81.95175    81.96713    81.98005
+## weekday4      117.95252   117.97340   117.99167   118.00753   118.02121
+## weekday5      199.90441   199.92388   199.94037   199.95415   199.96549
+## weekday6      429.33250   429.43056   429.51785   429.59545   429.66434
+## workingday1   263.92398   263.98036   264.03005   264.07366   264.11182
+## weathersit   -626.71666  -626.80219  -626.87928  -626.94851  -627.01046
+## temp         2380.67383  2383.05409  2385.53749  2388.11067  2390.76005
+## atemp        2282.94474  2278.98805  2275.09020  2271.25398  2267.48166
+## hum         -1489.95222 -1489.83406 -1489.72919 -1489.63754 -1489.55867
+## windspeed   -3026.74420 -3026.84868 -3026.95825 -3027.07340 -3027.19421
+##                                                                        
+## (Intercept)  2169.88803  2169.90494  2169.92925  2169.95982  2169.99564
+## (Intercept)     .           .           .           .           .      
+## season2       868.42305   868.90091   869.34709   869.76365   870.15257
+## season3       780.02471   780.82195   781.55472   782.22796   782.84632
+## season4      1564.66481  1565.51217  1566.28222  1566.98147  1567.61606
+## yr1          2037.57831  2037.68403  2037.77747  2037.85991  2037.93252
+## mnth2         124.23864   124.45617   124.64468   124.80737   124.94718
+## mnth3         543.69229   543.81529   543.90861   543.97595   544.02066
+## mnth4         457.60557   457.47331   457.32408   457.16104   456.98699
+## mnth5         765.85722   765.78110   765.67485   765.54301   765.38970
+## mnth6         542.47104   542.29889   542.09951   541.87736   541.63648
+## mnth7          54.27462    53.90769    53.53061    53.14642    52.75784
+## mnth8         508.21944   507.81217   507.39813   506.98008   506.56049
+## mnth9        1021.38841  1020.98145  1020.57758  1020.17842  1019.78533
+## mnth10        479.38588   478.89071   478.42301   477.98159   477.56521
+## mnth11       -159.60006  -160.19634  -160.74922  -161.26154  -161.73606
+## mnth12       -109.10713  -109.41985  -109.71304  -109.98758  -110.24442
+## holiday1     -309.03077  -308.96317  -308.90680  -308.86050  -308.82322
+## weekday1      -50.16462   -50.15713   -50.14962   -50.14209   -50.13454
+## weekday2       38.83755    38.84935    38.85970    38.86876    38.87666
+## weekday3       81.99075    81.99946    82.00639    82.01174    82.01569
+## weekday4      118.03289   118.04279   118.05108   118.05794   118.06353
+## weekday5      199.97463   199.98180   199.98721   199.99106   199.99351
+## weekday6      429.72540   429.77946   429.82724   429.86939   429.90652
+## workingday1   264.14505   264.17388   264.19876   264.22012   264.23835
+## weathersit   -627.06573  -627.11491  -627.15855  -627.19717  -627.23126
+## temp         2393.47230  2396.23463  2399.03503  2401.86235  2404.70636
+## atemp        2263.77505  2260.13559  2256.56436  2253.06217  2249.62956
+## hum         -1489.49191 -1489.43640 -1489.39125 -1489.35553 -1489.32831
+## windspeed   -3027.32047 -3027.45181 -3027.58773 -3027.72768 -3027.87108
+##                                                            
+## (Intercept)  2170.03585  2170.07968  2170.12648  2170.17567
+## (Intercept)     .           .           .           .      
+## season2       870.51570   870.85476   871.17138   871.46709
+## season3       783.41416   783.93554   784.41422   784.85369
+## season4      1568.19167  1568.71357  1569.18663  1569.61531
+## yr1          2037.99634  2038.05232  2038.10131  2038.14407
+## mnth2         125.06671   125.16835   125.25421   125.32619
+## mnth3         544.04579   544.05402   544.04778   544.02923
+## mnth4         456.80442   456.61555   456.42231   456.22638
+## mnth5         765.21862   765.03310   764.83607   764.63014
+## mnth6         541.38053   541.11277   540.83607   540.55300
+## mnth7          52.36728    51.97685    51.58839    51.20348
+## mnth8         506.14152   505.72504   505.31266   504.90576
+## mnth9        1019.39945  1019.02172  1018.65290  1018.29358
+## mnth10        477.17264   476.80264   476.45398   476.12549
+## mnth11       -162.17541  -162.58213  -162.95860  -163.30707
+## mnth12       -110.48450  -110.70879  -110.91823  -111.11372
+## holiday1     -308.79396  -308.77183  -308.75601  -308.74576
+## weekday1      -50.12700   -50.11948   -50.11198   -50.10451
+## weekday2       38.88354    38.88950    38.89466    38.89911
+## weekday3       82.01841    82.02004    82.02072    82.02058
+## weekday4      118.06800   118.07148   118.07410   118.07595
+## weekday5      199.99473   199.99487   199.99405   199.99239
+## weekday6      429.93916   429.96780   429.99287   430.01475
+## workingday1   264.25378   264.26673   264.27749   264.28630
+## weathersit   -627.26128  -627.28764  -627.31072  -627.33088
+## temp         2407.55777  2410.40821  2413.25019  2416.07705
+## atemp        2246.26683  2242.97412  2239.75135  2236.59833
+## hum         -1489.30869 -1489.29582 -1489.28892 -1489.28724
+## windspeed   -3028.01732 -3028.16584 -3028.31609 -3028.46754
+\end{verbatim}
+
+we dropped the dteday because it does is a factor variable with too many
+levels and it basically is the same as the index which does not tells us
+anything in this test.
+
+x\_1: all independent variables y: cnt---the response
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\NormalTok{cv.ridge <-}\KeywordTok{cv.glmnet}\NormalTok{(x_}\DecValTok{1}\NormalTok{, y,}\DataTypeTok{alpha =} \DecValTok{0}\NormalTok{,}\DataTypeTok{lambda =}\KeywordTok{exp}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DataTypeTok{length=}\DecValTok{100}\NormalTok{)),}\DataTypeTok{type.measure =} \StringTok{"mse"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(cv.ridge)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p8106_mtp_group12_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot_glmnet}\NormalTok{(ridge.mod, }\DataTypeTok{xvar =} \StringTok{"rlambda"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p8106_mtp_group12_files/figure-latex/unnamed-chunk-9-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{best.lambda =}\StringTok{ }\NormalTok{cv.ridge}\OperatorTok{$}\NormalTok{lambda.min}
+\NormalTok{best.lambda}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 28.03162
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{predict}\NormalTok{(ridge.mod, }\DataTypeTok{s =}\NormalTok{ best.lambda, }\DataTypeTok{type=}\StringTok{"coefficients"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 30 x 1 sparse Matrix of class "dgCMatrix"
+##                       1
+## (Intercept)  2194.33880
+## (Intercept)     .      
+## season2       806.77376
+## season3       669.10299
+## season4      1425.28972
+## yr1          2007.42196
+## mnth2          62.85203
+## mnth3         484.42234
+## mnth4         427.00079
+## mnth5         715.68689
+## mnth6         501.39192
+## mnth7          42.09289
+## mnth8         497.96608
+## mnth9        1021.60810
+## mnth10        522.57642
+## mnth11        -89.59238
+## mnth12        -84.10455
+## holiday1     -327.56920
+## weekday1      -51.21017
+## weekday2       35.44960
+## weekday3       78.15475
+## weekday4      114.64163
+## weekday5      195.88355
+## weekday6      414.34773
+## workingday1   255.55538
+## weathersit   -616.67433
+## temp         2354.52018
+## atemp        2464.43400
+## hum         -1494.05323
+## windspeed   -3015.37820
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cv.lasso <-}\KeywordTok{cv.glmnet}\NormalTok{(x_}\DecValTok{1}\NormalTok{, y,}\DataTypeTok{alpha =} \DecValTok{1}\NormalTok{,}\DataTypeTok{lambda =}\KeywordTok{exp}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DataTypeTok{length=}\DecValTok{100}\NormalTok{)),}\DataTypeTok{type.measure =} \StringTok{"mse"}\NormalTok{)}
+\NormalTok{cv.lasso}\OperatorTok{$}\NormalTok{lambda.min}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(cv.lasso)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p8106_mtp_group12_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot_glmnet}\NormalTok{(cv.lasso}\OperatorTok{$}\NormalTok{glmnet.fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{p8106_mtp_group12_files/figure-latex/unnamed-chunk-10-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{predict}\NormalTok{(cv.lasso, }\DataTypeTok{s=}\StringTok{"lambda.min"}\NormalTok{, }\DataTypeTok{type=}\StringTok{"coefficients"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 30 x 1 sparse Matrix of class "dgCMatrix"
+##                         1
+## (Intercept)  2176.2358199
+## (Intercept)     .        
+## season2       885.5693453
+## season3       775.1104442
+## season4      1549.9064679
+## yr1          2034.4519418
+## mnth2          97.4033638
+## mnth3         501.5496309
+## mnth4         396.7099074
+## mnth5         692.0047146
+## mnth6         465.0276285
+## mnth7          -9.2262346
+## mnth8         441.4918821
+## mnth9         969.1045928
+## mnth10        449.6093953
+## mnth11       -170.4564901
+## mnth12       -121.0436175
+## holiday1     -238.6709139
+## weekday1     -125.8262950
+## weekday2      -37.6624495
+## weekday3        0.1702927
+## weekday4       36.5475864
+## weekday5      118.7331869
+## weekday6      422.4047140
+## workingday1   336.8633919
+## weathersit   -624.2161072
+## temp         2665.9789798
+## atemp        2073.9923884
+## hum         -1495.5614539
+## windspeed   -3029.9000261
+\end{verbatim}
+
+? why is that lasso best lambda is 1 ?
+
+
+\end{document}
