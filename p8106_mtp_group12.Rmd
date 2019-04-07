@@ -60,6 +60,21 @@ corrplot(cor(x))
 
 
 ```{r}
+#simple linear regression
+
+model_lm = lm(cnt~ season +  yr + mnth + holiday + weekday + workingday + weathersit + temp + atemp + hum + windspeed, data = day)
+summary(model_lm)
+
+ctrl1 <-trainControl(method = "cv", number = 10)
+set.seed(1)
+lmFit <-train(cnt~ season +  yr + mnth + holiday + weekday + workingday + weathersit + temp + atemp + hum + windspeed,data = day,method = "lm",trControl = ctrl1)
+lmFit
+```
+
+
+mse  = 798^2 =636804
+
+```{r}
 #Non Linear Methods from L5.pdf
 theme1 <-trellis.par.get()
 theme1$plot.symbol$col <-rgb(.2, .4, .2, .5)
@@ -199,6 +214,7 @@ plot(gam.m2a)
 plot(gam.m3a)
 plot(gam.m4a)
 plot(gam.m5a)
+
 
 ```
 
