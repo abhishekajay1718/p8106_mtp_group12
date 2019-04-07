@@ -47,7 +47,9 @@ we attempt to fit 5 models in total to this dataset which are simple linear regr
 ## Linear Models
 
 Simple linear regression is the very first attempt we made. we would like to see how well the linear regression model perform and what are the coefficients.  Further non-linear regression will be performed in advance and in comparison to this model. We used lm() function to make the model and the MSE is very high. This is according to the large scale of our outcome variable `cnt` which is around 1000 compared to our predictors which are around 1.
-Since rescaling the outcome variable will change both estimates and the MSE, we chose to keep the original scale and its correlation to the predictors. Furthermore, we can still compare the MSE of other models since they should all be very large. Among those 8 predictors, we decided to perform ridge and LASSO models to shrink the coefficients estimate from linear model. We will select and remove predictors according to their results, and try to produce models with fewer predictors as possible as we can. The resulting estimates are listed in the Estimates section below. 
+Since rescaling the outcome variable will change both estimates and the MSE, we chose to both keep the original scale, and run the models the second times while rescaling the outcome by multiplying it to 0.01. 
+
+Futhermore, among those 8 predictors, we decided to perform ridge and LASSO models to shrink the coefficients estimate from linear model. We will select and remove predictors according to their results, and try to produce models with fewer predictors as possible as we can. The resulting estimates are listed in the Estimates section below. 
 
 ## Non-Linear Models
 
@@ -56,13 +58,47 @@ We decided to try non-linear model covered in class which are GAM and MARS, and 
 
 ## Tuning Parameters
 To find the best $\lambda$ for ridge and LASSO model, we utilize `cv.glmnet` command to perform cross-validation with a grid ranged from -1 to 10 and its length equals 100. In addition, GCV, generalized cross-validation with K equals to 10 is performed to produce the optimal tuning parameter for GAM model. In order to minimize the prediction error of  MARS model, we choose our tunning grid to have its degree of interaction ranged from 1 to 3, and its number of retained items from 2 to 30. 
+
 ## Goodness of Fit
-10-Fold Cross-validation is performed to each model and the average test fold MSE is collected to analyze their predictability and their goodness of fit. 
+10-Fold Cross-validation is performed to each model and the average test fold MSE is collected to analyze their predictability and their goodness of fit. Each model has been performed twice, one with the original outcome variable `cnt`, one with the outcome rescaled to 0.01. 
+
+```{r, echo = FALSE}
+
+table1 = matrix(c(1416175,	1418371,1710750,1717490,1718853,141.7557,		141.8371,	169.6783,	170.2468,	175.4663),
+                ncol = 2)
+colnames(table1) = c("MSE for original outcome"," MSE for scaled outcome")
+rownames(table1) = c("MARS", "GAM", "ridge","Linear","LASSO")
+knitr::kable(table1, caption = "Average test fold MSE") %>% 
+  kableExtra::kable_styling(latex_options = c("striped", "hold_position"))
+```
 
 ## Estimates
+<<<<<<< HEAD
+=======
 
 
 
 # Limitations
+>>>>>>> 6de4d58101498c5669a5873560c56bf7253470c0
+
+Estimates of coefficients for each predictor are measured by Simple Linear model, ridge and LASSO model. Each of the three model are performed twice for the original outcome and the rescaled outcome. 
+
+```{r}
+table2 = matrix(c(3061.1085  , 917.6644 ,  469.1203 , 1493.7920  ,-596.8185 ,  101.1146  ,-233.9494 ,-1941.7010,5818.3184,406.0477 ,-2610.9173 ,-3280.3364,30.611085,   9.176644 ,  4.691203,  14.937920 , -5.968185,1.011146,  -2.339494 ,-19.417010 , 58.183184,4.060477 ,-26.109173 ,-32.803364 ,2944.1794 ,  840.7957 ,439.4329 , 1383.8011 , -570.4896 ,  103.0900 , -247.3344, -1902.5122 , 3504.1926,2917.0274, -2466.6025,-3087.8805, 29.468977 ,  8.452095 ,  4.426609 , 13.896301 , -5.714296  , 1.030874  ,-2.465057, -19.041578 , 35.311387,28.895797 ,-24.755658, -30.930439, 3050.10123 ,  899.99200 ,  448.73319 , 1479.01403 , -590.47346  ,  98.38661 , -231.47830, -1932.26671,5744.73842  , 517.48958 ,-2602.77634, -3262.74584,28.5482360,   5.1809573  , 0.0000000 , 11.4923601 , -4.3710025 ,  0.2990248 , -1.7623000 ,-17.2240229,58.2129942,  10.3914228, -23.6076260, -29.0829508),ncol = 6)
+rownames(table2) = c("(Intercept)","season2"   ,  "season3"  ,   "season4"   ,  "holiday1"   , "workingday1", "weathersit2","weathersit3" ,"temp"    ,    "atemp"    ,   "hum"      ,   "windspeed")
+colnames(table2) = c("Linear", "Linear rescaled", "ridge", "ridge rescaled", "LASSO", "LASSO rescaled")
+table2 %>% 
+  knitr::kable(caption = "Coefficient Estimates") %>% 
+  kableExtra::kable_styling(latex_options = c("striped", "hold_position"))
+  
+```
+
+
+
+## Limitations
+
+
 
 # Conclusion
+
+<img src="./GAM.png" style="width:90%" >
