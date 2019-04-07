@@ -29,31 +29,19 @@ https://github.com/abhishekajay1718/p8106_mtp_group12
 
 # Exploratory Data Analysis/ Visualization
 
-Here we showcase some of the plots we looked at during our EDA to get a better idea of the data and plan what kind of model will we want to fit to get better predictions. 
+Here we discuss about the figures attached at the end of the report to showcase what we looked at during our EDA to get a better idea of the data and plan what kind of model will we want to fit to get better predictions. 
 
 ## Predictors Intercorrelation
 
-```{r pressure, echo=FALSE, fig.cap="Corrplot", out.width = '80%'}
-knitr::include_graphics("cor.png")
-```
-
-In the above figure we see that `month` variable is highly correlated to `season`, `temp` and `atemp`. Similarly, `workingday` is moderately correlated to `weekday`, however by definition is just a linear combination of holiday and weekday. Therefore, we drop these predictors.
+In the corrplot (fig. 1) we see that `month` variable is highly correlated to `season`, `temp` and `atemp`. Similarly, `workingday` is moderately correlated to `weekday`, however by definition is just a linear combination of holiday and weekday. Therefore, we drop these predictors.
 
 ## Scatterplots
 
-```{r , echo=FALSE, fig.cap="Scatterplot", out.width = '80%'}
-knitr::include_graphics("scatter.jpg")
-```
-
-We plotted the scatterplot for all the 8 predictors but only display the 4 that showed some non-linear nature. We see that our continuous variables are the ones that shows non-linear nature, namely-- windspeed, temp, atemp and humidity. We see an increase in bike rentals with temp, however, a decrease in bike rental with humidity and windspeed.
+We plotted the scatterplot (fig. 2) for all the 8 predictors but only display the 4 that showed some non-linear nature in this report. We see that our continuous variables are the ones that shows non-linear nature, namely-- windspeed, temp, atemp and humidity. We see an increase in bike rentals with temp, however, a decrease in bike rental with humidity and windspeed.
 
 ## splines
 
-```{r , echo=FALSE, fig.cap="Splines", out.width = '80%'}
-knitr::include_graphics("splines.png")
-```
-
-The splines above actually strengthens our preliminary guesses from the scatterplot regarding a negative association between windspeed, and a increase followed by a steep decrease in bike rental with increasing humidity. 
+The splines (fig. 3) actually strengthens our preliminary guesses from the scatterplot regarding a negative association between windspeed, and a increase followed by a steep decrease in bike rental with increasing humidity. 
 
 Temp and atemp both show a general trend of positive association with bike rentals.
 
@@ -127,3 +115,15 @@ Here we'll talk about the scaled outcome to accommodate the fact that our respon
 From our EDA, we expected the variables related to the weather to be the most important when planning bike sharing infrastructure to support bike rental counts. Consequently we found the windspeed, humidity, temperature and weather situation to be the most influential predictors, as expected, with the largest coefficients when forecasting bike rental counts. 
 
 Therefore, this analysis tells us that the variables most consequential in estimating bike rentals are mostly weather related. People bike less when there's higher windspeed outside, high humidity outside while they bike more on warmer days. One should keep in mind that our range of temperature is not too high and a warmer day here means mostly a pleasant day. The city planning committee can set up public water dispensers around the city to circumvent to support bike riding even during high humid days, as a suggestion. This study thus will help better plan biking infrastructure in a city.
+
+```{r pressure, echo=FALSE, fig.cap="Corrplot", out.width = '80%'}
+knitr::include_graphics("cor.png")
+```
+
+```{r , echo=FALSE, fig.cap="Scatterplot", out.width = '80%'}
+knitr::include_graphics("scatter.jpg")
+```
+
+```{r , echo=FALSE, fig.cap="Splines", out.width = '80%'}
+knitr::include_graphics("splines.png")
+```
