@@ -15,7 +15,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
+dataset & variables introduction
+
 ## Data Cleaning
+
+
+
 ## Github Site
 https://github.com/abhishekajay1718/p8106_mtp_group12
 
@@ -23,14 +28,21 @@ https://github.com/abhishekajay1718/p8106_mtp_group12
 
 ## Predictors Intercorrelation
 ## Scatterplots
+## splines
 
 # Models
-## Predictors
+
+The Predictors we kept to predict the outcome `cnt`--- daily count of rental bikes, are season, years, months, holiday, weekday, workingday, weathersituation,  temp, atemp, humidity, and windspeed. We are keeping all the predictors since none of them appears to be redundent to us. We will assume that every parameter we kept will have an impact on the outcome variable before modeling. 
+
+we attempt to fit 5 models in total to this dataset which are simple linear regression, GAM, MARS, ridge, lasso.
+
 ## Linear Models
+
+
 ## Non-Linear Models
 ## Tuning Parameters
 ## Goodness of Fit
 ## Estimates
-## Limitations
+# Limitations
 
 # Conclusion

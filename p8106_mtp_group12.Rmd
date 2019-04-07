@@ -56,23 +56,26 @@ x = day
 x = model.matrix(casual + registered + cnt~., x)[,-1]
 y = day$cnt
 corrplot(cor(x))
+a = day %>% 
+  select(-c(yr, mnth, weekday))
+x_n = model.matrix(casual + registered + cnt~.,a)[,-1]
 ```
 
 
 ```{r}
 #simple linear regression
 
-model_lm = lm(cnt~ season +  yr + mnth + holiday + weekday + workingday + weathersit + temp + atemp + hum + windspeed, data = day)
+model_lm = lm(cnt~ season +  holiday +  workingday + weathersit + temp + atemp + hum + windspeed, data = day)
 summary(model_lm)
 
 ctrl1 <-trainControl(method = "cv", number = 10)
 set.seed(1)
-lmFit <-train(cnt~ season +  yr + mnth + holiday + weekday + workingday + weathersit + temp + atemp + hum + windspeed,data = day,method = "lm",trControl = ctrl1)
+lmFit <-train(cnt~ season +   holiday  + workingday + weathersit + temp + atemp + hum + windspeed,data = day,method = "lm",trControl = ctrl1)
 lmFit
 ```
 
 
-mse  = 798^2 =636804
+mse  =1716100
 
 ```{r}
 #Non Linear Methods from L5.pdf
@@ -83,7 +86,7 @@ theme1$plot.line$col <-rgb(.8, .1, .1, 1)
 theme1$plot.line$lwd <- 2
 theme1$strip.background$col <-rgb(.0, .2, .6, .2)
 trellis.par.set(theme1)
-featurePlot(x, y, plot = "scatter", labels =c("","Y"),type =c("p"), layout =c(10, 3))
+featurePlot(x_n, y, plot = "scatter", labels =c("","Y"),type =c("p"), layout =c(4, 3))
 ```
 
 The above plots clearly show that there's non linear relationship between "cnt" and temp, atemp, hum and windspeed. What follows is us trying to fit univariate non-linear models and GAM to investigate the association between cnt and the four predictors.
@@ -201,15 +204,16 @@ plot(gam.m3)
 plot(gam.m4)
 plot(gam.m5)
 
-#deleting the yr and mnth variables
+#deleting the yr and mnth and weekday variables
 
-gam.m1a = gam(cnt~ season +  holiday + weekday + workingday + weathersit + temp + atemp + hum + windspeed, data = day)
+gam.m1a = gam(cnt~ season +  holiday  + workingday + weathersit + temp + atemp + hum + windspeed, data = day)
 
 
-gam.m2a = gam(cnt~ season +  holiday + weekday + workingday + weathersit + s(temp) + atemp + hum + windspeed, data = day) # s:temp
-gam.m3a = gam(cnt~ season +  holiday + weekday + workingday + weathersit + temp + s(atemp) + hum + windspeed, data = day) # s:atemp
-gam.m4a = gam(cnt~ season +  holiday + weekday + workingday + weathersit + temp + atemp + s(hum) + windspeed, data = day) # s:hum
-gam.m5a = gam(cnt~ season +  holiday + weekday + workingday + weathersit + temp + atemp + hum + s(windspeed), data = day) # s:windspeed
+gam.m2a = gam(cnt~ season +  holiday  + workingday + weathersit + s(temp) + atemp + hum + windspeed, data = day) # s:temp
+gam.m3a = gam(cnt~ season +  holiday  + workingday + weathersit + temp + s(atemp) + hum + windspeed, data = day) # s:atemp
+gam.m4a = gam(cnt~ season +  holiday  + workingday + weathersit + temp + atemp + s(hum) + windspeed, data = day) # s:hum
+
+gam.m5a = gam(cnt~ season +  holiday  + workingday + weathersit + temp + atemp + hum + s(windspeed), data = day) # s:windspeed
 
 anova(gam.m1, gam.m2, test = "F")
 anova(gam.m1, gam.m3, test = "F")
@@ -235,7 +239,7 @@ gam.fit$finalModel
 
 x_2 = 
   day %>% 
-  select(-c( casual, registered, cnt, yr, mnth))
+  select(-c( casual, registered, cnt, yr, mnth, weekday))
 
 x_2 = model.matrix(~., x_2)
 
@@ -250,7 +254,7 @@ gam.fit2$finalModel
 
 ?The deviance is pretty huge of those ANOVA?
 
-GCV score is too large. 
+GCV score is 1418371 for gam.fit2. 
 
 ```{r}
 #poisson regression for categorical terms, exclude yr and mnth
@@ -270,35 +274,31 @@ exp(day.glm1$coefficients)
 poisson regression is a nonlinear regression for discrete outcomes(when response is a count).  However, it is only valid when large outcome is not frequent in the dataset. 
 the variables obtaining collinearity with each other potentially will results in an "NA" in the model, thus we chose to eliminate yr and mnth. workingday also seems to have perfect collinearity with weekday&holiday.
 The large scale of our outcome has leads to an unreasonable high deviance in our model. By learning how bad the goodness of fit is, we tried to shrink the outcome by mutiplying 0.01 to it. This gives us similar estimates however with a much better and smaller deviance, which results in a pearson chi-sq test with a p-value that is close to zero. 
-
+**SKIP this**
 
 ```{r}
 #mars
 mars_grid <-expand.grid(degree = 1:2,nprune = 2:30)
 set.seed(2)
-mars.fit <-train(x, y,method = "earth",tuneGrid = mars_grid,trControl = ctrl1)
+mars.fit <-train(x_n, y,method = "earth",tuneGrid = mars_grid,trControl = ctrl1)
 
 ggplot(mars.fit)
 mars.fit$bestTune
 
 summary(mars.fit)
 coef(mars.fit$finalModel)
-bwplot(resamples(list(mars = mars.fit,gam = gam.fit)), metric = "RMSE")
+bwplot(resamples(list(mars = mars.fit,gam = gam.fit2)), metric = "RMSE")
 ```
 
-GCV 451987.9
+GCV 1414719
 
 #Linear Model (less flexibility but more interpretability)
 
 
 ```{r}
-x_1 = 
-  day %>% 
-  select(-c( casual, registered, cnt))
 
-x_1 = model.matrix(~., x_1)
 
-ridge.mod <-glmnet(x_1, y, alpha=0, lambda =exp(seq(-1, 10, length=100)))
+ridge.mod <-glmnet(x_n, y, alpha=0, lambda =exp(seq(-1, 10, length=100)))
 ridge.mod$lambda
 
 dim(coef(ridge.mod))
@@ -311,7 +311,7 @@ y: cnt---the response
 
 ```{r}
 set.seed(2)
-cv.ridge <-cv.glmnet(x_1, y,alpha = 0,lambda =exp(seq(-1, 10, length=100)),type.measure = "mse")
+cv.ridge <-cv.glmnet(x_n, y,alpha = 0,lambda =exp(seq(-1, 10, length=100)),type.measure = "mse")
 plot(cv.ridge)
 
 plot_glmnet(ridge.mod, xvar = "rlambda")
@@ -325,7 +325,7 @@ min(cv.ridge$cvm)
 the min mse is `r min(cv.ridge$cvm)`. 
 
 ```{r}
-cv.lasso <-cv.glmnet(x_1, y,alpha = 1,lambda =exp(seq(-1, 10, length=100)),type.measure = "mse")
+cv.lasso <-cv.glmnet(x_n, y,alpha = 1,lambda =exp(seq(-1, 10, length=100)),type.measure = "mse")
 cv.lasso$lambda.min
 plot(cv.lasso)
 
