@@ -108,6 +108,7 @@ table2 %>%
   
 ```
 -----------------------------------------------
+
 ## Limitations
 
 We see that there's a large difference in the scale of our response and predictors. This significantly affects our MSE in linear models. For this one might scale their response but that affects our interpretation. 
