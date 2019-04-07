@@ -59,6 +59,7 @@ corrplot(cor(x))
 a = day %>% 
   select(-c(yr, mnth, weekday))
 x_n = model.matrix(casual + registered + cnt~.,a)[,-1]
+
 ```
 
 
