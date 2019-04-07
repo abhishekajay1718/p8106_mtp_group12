@@ -47,7 +47,8 @@ day = read.csv("./data/day.csv") %>%
          mnth = as.factor(mnth), 
          holiday = as.factor(holiday), 
          weekday = as.factor(weekday), 
-         workingday = as.factor(workingday)
+         workingday = as.factor(workingday),
+         weathersit = as.factor(weathersit)
          #dteday = as.vector(dteday)
          ) 
   
@@ -241,11 +242,13 @@ pchisq(day.glm1$deviance, df=day.glm1$df.residual, lower.tail=FALSE)
 day.glm2 <- glm(cnt~season +  holiday + weekday + workingday + weathersit + temp + atemp + hum + windspeed, family=poisson, data=day_p)
 summary(day.glm2)
 pchisq(day.glm2$deviance, df=day.glm2$df.residual, lower.tail=FALSE)
+
+exp(day.glm1$coefficients)
 ```
 
 poisson regression is a nonlinear regression for discrete outcomes(when response is a count).  However, it is only valid when large outcome is not frequent in the dataset. 
 the variables obtaining collinearity with each other potentially will results in an "NA" in the model, thus we chose to eliminate yr and mnth. workingday also seems to have perfect collinearity with weekday&holiday.
-The large scale of our outcome has leads to an unreasonable high deviance in our model. By learning how bad the goodness of fit is, we tried to shrink the outcome by mutiplying 0.01 to it. This gives us similar coefficients however with a much better and smaller deviance, which results in a pearson chi-sq test with a p-value that is close to zero. 
+The large scale of our outcome has leads to an unreasonable high deviance in our model. By learning how bad the goodness of fit is, we tried to shrink the outcome by mutiplying 0.01 to it. This gives us similar estimates however with a much better and smaller deviance, which results in a pearson chi-sq test with a p-value that is close to zero. 
 
 
 ```{r}
