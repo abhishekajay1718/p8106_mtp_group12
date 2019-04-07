@@ -7,13 +7,11 @@ output: pdf_document
 
 ---
 
-
-
 # Introduction
 
 With the advent of climate change awareness, it has become more important now than ever to look for better alternatives to motorized modes of transportation. One of which is biking. In the recent decades, biking has gained immense popularity in Europe with countries like The Netherlands and Denmark investing heavily in biking infrastructure and making motorized vehicles more expensive. There's one thing that is common to all of these countries. They're all known for the highest quality of life. However, the US is yet to jump on the wagon. 
 
-The bike sharing dataset obtained from the UCI Machine Learning Repository represents bike rental data from the Capital Bikeshare system in Washington, D.C.. We perform the following analysis to forecast the amount of bikes being rented using data from 2011 and 2012 with weather data (obtained and merged into it from freemeteo.com) such as humidity, temperature and the type of day, i.e whether it is a holiday, weekend or weekday. Learning the extent of influence of these predictors in the amount of bikes being rented will give better insights into how bike sharing infrastructure can be developed in urban American citis with what aspects getting higher attention than others to begin with. 
+The bike sharing dataset obtained from the UCI Machine Learning Repository represents bike rental data from the Capital Bikeshare system in Washington, D.C.. We perform the following analysis to forecast the amount of bikes being rented using data from 2011 and 2012 with weather data (obtained and merged into it from freemeteo.com) such as humidity, temperature and the type of day, i.e whether it is a holiday, weekend or weekday. Learning the extent of influence of these predictors in the amount of bikes being rented will give better insights into how bike sharing infrastructure can be developed in urban American cities with what aspects getting higher attention than others to begin with. 
 
 ## Data Description
 
@@ -30,11 +28,7 @@ https://github.com/abhishekajay1718/p8106_mtp_group12
 
 # Exploratory Data Analysis/ Visualization
 
-write something for plot partition
-
 ## Predictors Intercorrelation
-
-Figure.1
 
 ```{r pressure, echo=FALSE, fig.cap="Corrplot", out.width = '80%'}
 knitr::include_graphics("cor.png")
@@ -43,21 +37,17 @@ knitr::include_graphics("cor.png")
 
 ## Scatterplots
 
-Figure.2
-
-
 ```{r , echo=FALSE, fig.cap="Scatterplot", out.width = '80%'}
 knitr::include_graphics("scatter.png")
 ```
 
 ## splines
 
-Figure.3
-
-
 ```{r , echo=FALSE, fig.cap="Splines", out.width = '80%'}
 knitr::include_graphics("splines.png")
 ```
+
+-----------------------------------------------
 
 # Models
 
@@ -71,11 +61,10 @@ Simple linear regression is the very first attempt we made. we would like to see
 
 Since rescaling the outcome variable will change both estimates and the MSE, we chose to both keep the original scale, and run the models the second times while rescaling the outcome by multiplying it to 0.01. 
 
-Futhermore, among those 8 predictors, we decided to perform ridge and LASSO models to shrink the coefficients estimate from linear model. We will select and remove predictors according to their results, and try to produce models with fewer predictors as possible as we can. The resulting estimates are listed in the Estimates section below. #write soemthing about CV, training and testing
+Futhermore, among those 8 predictors, we decided to perform ridge and LASSO models to shrink the coefficients estimate from linear model. We will select and remove predictors according to their results, and try to produce models with fewer predictors as possible as we can. The resulting estimates are listed in the Estimates section below. 
 
 
 ## Non-Linear Models
-
 According to our splines plot, the four continuous predictors are having non-linear correlation with the outcome. 
 We decided to try non-linear model covered in class which are GAM and MARS, and they are expected to be more flexible and have better fit than linear one. 
 
@@ -114,8 +103,13 @@ table2 %>%
 
 ## Limitations
 
+We see that there's a large difference in the scale of our response and predictors. This significantly affects our MSE in linear models. For this one might scale their response but that affects our interpretation. 
 
+Our re-scaling is probably a limitation and we believe better methods are out there to better transform it. On the other hand, our non-linear model was flexible enough to campture the underlying truth since our linear models and non linear models both show very high dependence of the reponse on the continuous predictos used in GAM and MARS. This is also noticable with the decrease in our MSE when moving from linear model to non linear models. 
 
 # Conclusion
 
-<img src="./GAM.png" style="width:90%" >
+What were your findings? Are they what you expect? What insights into the data can you make?
+
+
+windspeed, humidity, temp, atemp (lowwer in LASSO cuz of the interaction between it and temp) weather situation.
