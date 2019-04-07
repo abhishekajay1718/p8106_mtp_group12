@@ -36,6 +36,8 @@ Capital Bikeshare has over 350 stations in Washington, D.C., Alington, VA and MD
 
 We are trying to use this dataset to see if temperature, weather and type of day (working day, weekend or a holiday) have any effect on the amount of bike rentals on any given day. Simply put, we're trying to forecast bike rentals on any day. This can have a ton of implications in traffic management. Forecasting the amount of bikes on the road can give a better sense of travel time and allowing taxi services to provide more accurate "estimated time of arrival" estimates. 
 
+**How did you prepare and clean the data?**
+
 
 ```{r}
 day = read.csv("./data/day.csv") %>% 
@@ -66,74 +68,7 @@ trellis.par.set(theme1)
 featurePlot(x, y, plot = "scatter", labels =c("","Y"),type =c("p"), layout =c(4, 2))
 ```
 
-The 
-
-**How did you prepare and clean the data?**
-
-
-```{r}
-
-```
-
-```{r}
-x_1 = 
-  day %>% 
-  select(-c( casual, registered, cnt))
-
-x_1 = model.matrix(~., x_1)
-
-ridge.mod <-glmnet(x_1, y, alpha=0, lambda =exp(seq(-1, 10, length=100)))
-ridge.mod$lambda
-
-coef(ridge.mod)
-```
-
-we dropped the dteday because it does is a factor variable with too many levels and it basically is the same as the index which does not tells us anything in this test. 
-
-x_1: all independent variables
-y: cnt---the response
-
-```{r}
-set.seed(2)
-cv.ridge <-cv.glmnet(x_1, y,alpha = 0,lambda =exp(seq(-1, 10, length=100)),type.measure = "mse")
-plot(cv.ridge)
-
-plot_glmnet(ridge.mod, xvar = "rlambda")
-
-best.lambda = cv.ridge$lambda.min
-best.lambda
-predict(ridge.mod, s = best.lambda, type="coefficients")
-```
-
-
-```{r}
-cv.lasso <-cv.glmnet(x_1, y,alpha = 1,lambda =exp(seq(-1, 10, length=100)),type.measure = "mse")
-cv.lasso$lambda.min
-plot(cv.lasso)
-
-plot_glmnet(cv.lasso$glmnet.fit)
-
-predict(cv.lasso, s="lambda.min", type="coefficients")
-```
-
-? why is that lasso best lambda is 1 ?
-
-
-```{r}
-theme1 <-trellis.par.get()
-theme1$plot.symbol$col <-rgb(.2, .4, .2, .5)
-theme1$plot.symbol$pch <- 16
-theme1$plot.line$col <-rgb(.8, .1, .1, 1)
-theme1$plot.line$lwd <- 2
-theme1$strip.background$col <-rgb(.0, .2, .6, .2)
-trellis.par.set(theme1)
-featurePlot(x_1, y, plot = "scatter", labels =c("","Y"),type =c("p"), layout =c(4, 2))
-```
-
-actually this is pretty enough and straight forward to see some trends of these variables toward the bike usage. 
-
-
-
+The above plots clearly show that there's non linear relationship between "cnt" and temp, atemp, hum and windspeed. What follows is us trying to fit univariate non-linear models and GAM to investigate the association between cnt and the four predictors.
 
 
 smooth splines for temp
@@ -213,6 +148,80 @@ p+geom_line(aes(x = windspeed, y = pred), data = pred.ss.df,color =rgb(.8, .1, .
 ```
 
 windspeed ^  --  cnt V
+
+
+
+
+
+
+
+```{r}
+gam.fit <- gam(compressive_strength ~ s(cement) + s(blast_furnace_slag) + s(fly_ash) + s(water) + s(superplasticizer) + s(coarse_aggregate) + s(fine_aggregate) + s(age), data = concrete_df) 
+ 
+summary(gam.fit)
+```
+
+```{r}
+x_1 = 
+  day %>% 
+  select(-c( casual, registered, cnt))
+
+x_1 = model.matrix(~., x_1)
+
+ridge.mod <-glmnet(x_1, y, alpha=0, lambda =exp(seq(-1, 10, length=100)))
+ridge.mod$lambda
+
+coef(ridge.mod)
+```
+
+we dropped the dteday because it does is a factor variable with too many levels and it basically is the same as the index which does not tells us anything in this test. 
+
+x_1: all independent variables
+y: cnt---the response
+
+```{r}
+set.seed(2)
+cv.ridge <-cv.glmnet(x_1, y,alpha = 0,lambda =exp(seq(-1, 10, length=100)),type.measure = "mse")
+plot(cv.ridge)
+
+plot_glmnet(ridge.mod, xvar = "rlambda")
+
+best.lambda = cv.ridge$lambda.min
+best.lambda
+predict(ridge.mod, s = best.lambda, type="coefficients")
+```
+
+
+```{r}
+cv.lasso <-cv.glmnet(x_1, y,alpha = 1,lambda =exp(seq(-1, 10, length=100)),type.measure = "mse")
+cv.lasso$lambda.min
+plot(cv.lasso)
+
+plot_glmnet(cv.lasso$glmnet.fit)
+
+predict(cv.lasso, s="lambda.min", type="coefficients")
+```
+
+? why is that lasso best lambda is 1 ?
+
+
+```{r}
+theme1 <-trellis.par.get()
+theme1$plot.symbol$col <-rgb(.2, .4, .2, .5)
+theme1$plot.symbol$pch <- 16
+theme1$plot.line$col <-rgb(.8, .1, .1, 1)
+theme1$plot.line$lwd <- 2
+theme1$strip.background$col <-rgb(.0, .2, .6, .2)
+trellis.par.set(theme1)
+featurePlot(x_1, y, plot = "scatter", labels =c("","Y"),type =c("p"), layout =c(4, 2))
+```
+
+actually this is pretty enough and straight forward to see some trends of these variables toward the bike usage. 
+
+
+
+
+
 
 
 GAM
