@@ -38,21 +38,9 @@ We are trying to use this dataset to see if temperature, weather and type of day
 
 
 ```{r}
-day = read.csv("./data/day.csv")
-
-x = day %>% 
-  select(-c(dteday, instant)) 
-x = model.matrix(casual + registered + cnt~., x)[,-1]
-corrplot(cor(x))
-```
-
-**How did you prepare and clean the data?**
-
-According to the above correlation plot, we decided to drop-- instant and intercept.
-
-```{r}
-day = day %>% 
+day = read.csv("./data/day.csv") %>% 
   janitor::clean_names() %>% 
+  select(-c(dteday, instant)) %>% 
   mutate(season = as.factor(season), 
          yr = as.factor(yr), 
          mnth = as.factor(mnth), 
@@ -61,6 +49,30 @@ day = day %>%
          workingday = as.factor(workingday)
          #dteday = as.vector(dteday)
          ) 
+  
+x = day  
+x = model.matrix(casual + registered + cnt~., x)[,-1]
+y = day$cnt
+corrplot(cor(x))
+
+#Non Linear Methods from L5.pdf
+theme1 <-trellis.par.get()
+theme1$plot.symbol$col <-rgb(.2, .4, .2, .5)
+theme1$plot.symbol$pch <- 16
+theme1$plot.line$col <-rgb(.8, .1, .1, 1)
+theme1$plot.line$lwd <- 2
+theme1$strip.background$col <-rgb(.0, .2, .6, .2)
+trellis.par.set(theme1)
+featurePlot(x, y, plot = "scatter", labels =c("","Y"),type =c("p"), layout =c(4, 2))
+```
+
+The 
+
+**How did you prepare and clean the data?**
+
+
+```{r}
+
 ```
 
 ```{r}
@@ -69,7 +81,7 @@ x_1 =
   select(-c( casual, registered, cnt))
 
 x_1 = model.matrix(~., x_1)
-y = day$cnt
+
 ridge.mod <-glmnet(x_1, y, alpha=0, lambda =exp(seq(-1, 10, length=100)))
 ridge.mod$lambda
 
