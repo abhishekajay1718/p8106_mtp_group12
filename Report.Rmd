@@ -28,24 +28,33 @@ https://github.com/abhishekajay1718/p8106_mtp_group12
 
 # Exploratory Data Analysis/ Visualization
 
+Here we showcase some of the plots we looked at during our EDA to get a better idea of the data and plan what kind of model will we want to fit to get better predictions. 
+
 ## Predictors Intercorrelation
 
 ```{r pressure, echo=FALSE, fig.cap="Corrplot", out.width = '80%'}
 knitr::include_graphics("cor.png")
 ```
 
+In the above figure we see that `month` variable is highly correlated to `season`, `temp` and `atemp`. Similarly, `workingday` is moderately correlated to `weekday`, however by definition is just a linear combination of holiday and weekday. Therefore, we drop these predictors.
 
 ## Scatterplots
 
 ```{r , echo=FALSE, fig.cap="Scatterplot", out.width = '80%'}
-knitr::include_graphics("scatter.png")
+knitr::include_graphics("scatter.jpg")
 ```
+
+We plotted the scatterplot for all the 8 predictors but only display the 4 that showed some non-linear nature. We see that our continuous variables are the ones that shows non-linear nature, namely-- windspeed, temp, atemp and humidity. We see an increase in bike rentals with temp, however, a decrease in bike rental with humidity and windspeed.
 
 ## splines
 
 ```{r , echo=FALSE, fig.cap="Splines", out.width = '80%'}
 knitr::include_graphics("splines.png")
 ```
+
+The splines above actually strengthens our preliminary guesses from the scatterplot regarding a negative association between windspeed, and a increase followed by a steep decrease in bike rental with increasing humidity. 
+
+Temp and atemp both show a general trend of positive association with bike rentals.
 
 -----------------------------------------------
 
