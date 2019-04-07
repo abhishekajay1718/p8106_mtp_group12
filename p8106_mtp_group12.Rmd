@@ -265,7 +265,7 @@ coef(mars.fit$finalModel)
 bwplot(resamples(list(mars = mars.fit,gam = gam.fit)), metric = "RMSE")
 ```
 
-
+GCV 451987.9
 
 #Linear Model (less flexibility but more interpretability)
 
