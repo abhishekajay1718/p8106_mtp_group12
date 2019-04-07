@@ -18,7 +18,7 @@ library(splines)
 library(ggplot2)
 library(mgcv)
 library(earth)
-
+library(ggpubr)
 set.seed(2)
 ```
 
@@ -109,7 +109,7 @@ pred.ss.df <-data.frame(pred = pred.ss$y,
 p <-ggplot(data = day,aes(x = temp, y = cnt))+
   geom_point(color =rgb(.2, .4, .2, .5))
 
-p+geom_line(aes(x = temp, y = pred), data = pred.ss.df,color =rgb(.8, .1, .1, 1))+ theme_bw()
+ssp1 = p+geom_line(aes(x = temp, y = pred), data = pred.ss.df,color =rgb(.8, .1, .1, 1))+ theme_bw()
 
 #humidity
 fit.ss <-smooth.spline(day$hum, day$cnt)
@@ -129,7 +129,7 @@ pred.ss.df <-data.frame(pred = pred.ss$y,
 p <-ggplot(data = day,aes(x = hum, y = cnt))+
   geom_point(color =rgb(.2, .4, .2, .5))
 
-p+geom_line(aes(x = hum, y = pred), data = pred.ss.df,color =rgb(.8, .1, .1, 1))+ theme_bw()
+ssp3 = p+geom_line(aes(x = hum, y = pred), data = pred.ss.df,color =rgb(.8, .1, .1, 1))+ theme_bw()
 
 #pretty persuasive, since 0.5-0.75 is the best comfortable humidity
 
@@ -151,7 +151,7 @@ pred.ss.df <-data.frame(pred = pred.ss$y,
 p <-ggplot(data = day,aes(x = windspeed, y = cnt))+
   geom_point(color =rgb(.2, .4, .2, .5))
 
-p+geom_line(aes(x = windspeed, y = pred), data = pred.ss.df,color =rgb(.8, .1, .1, 1))+ theme_bw()
+ssp4 = p+geom_line(aes(x = windspeed, y = pred), data = pred.ss.df,color =rgb(.8, .1, .1, 1))+ theme_bw()
 
 
 # windspeed ^  --  cnt V
@@ -174,7 +174,12 @@ pred.ss.df <-data.frame(pred = pred.ss$y,
 p <-ggplot(data = day,aes(x = atemp, y = cnt))+
   geom_point(color =rgb(.2, .4, .2, .5))
 
-p+geom_line(aes(x = atemp, y = pred), data = pred.ss.df, color =rgb(.8, .1, .1, 1))+ theme_bw()
+ssp2 = p+geom_line(aes(x = atemp, y = pred), data = pred.ss.df, color =rgb(.8, .1, .1, 1))+ theme_bw()
+
+par(mfrow=c(2,2))
+ggarrange(ssp1, ssp2,ssp3,ssp4,
+          labels = c("A", "B", "C","D"),
+          ncol = 2, nrow = 2)
 ```
 
 ##GAM
