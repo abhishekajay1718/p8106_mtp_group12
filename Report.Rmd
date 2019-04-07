@@ -6,7 +6,7 @@ output: pdf_document
 
 
 ---
-
+-----------------------------------------------
 # Introduction
 
 With the advent of climate change awareness, it has become more important now than ever to look for better alternatives to motorized modes of transportation. One of which is biking. In the recent decades, biking has gained immense popularity in Europe with countries like The Netherlands and Denmark investing heavily in biking infrastructure and making motorized vehicles more expensive. There's one thing that is common to all of these countries. They're all known for the highest quality of life. However, the US is yet to jump on the wagon. 
@@ -84,7 +84,7 @@ rownames(table1) = c("MARS", "GAM", "ridge","Linear","LASSO")
 knitr::kable(table1, caption = "Average test fold MSE") %>% 
   kableExtra::kable_styling(latex_options = c("striped", "hold_position"))
 ```
-
+-----------------------------------------------
 ## Estimates
 
 Estimates of coefficients for each predictor are measured by Simple Linear model, ridge and LASSO model. Each of the three model are performed twice for the original outcome and the rescaled outcome. 
@@ -98,18 +98,20 @@ table2 %>%
   kableExtra::kable_styling(latex_options = c("striped", "hold_position"))
   
 ```
-
-
-
+-----------------------------------------------
 ## Limitations
 
 We see that there's a large difference in the scale of our response and predictors. This significantly affects our MSE in linear models. For this one might scale their response but that affects our interpretation. 
 
-Our re-scaling is probably a limitation and we believe better methods are out there to better transform it. On the other hand, our non-linear model was flexible enough to campture the underlying truth since our linear models and non linear models both show very high dependence of the reponse on the continuous predictos used in GAM and MARS. This is also noticable with the decrease in our MSE when moving from linear model to non linear models. 
+Our re-scaling is probably a limitation and we believe better methods are out there to better transform it. On the other hand, our non-linear model was flexible enough to campture the underlying truth since our linear models and non linear models both show very high dependence of the reponse on the continuous predictions used in GAM and MARS. This is also noticable with the decrease in our MSE when moving from linear model to non linear models. 
 
+-----------------------------------------------
 # Conclusion
 
 What were your findings? Are they what you expect? What insights into the data can you make?
 
+Here we'll talk about the scaled outcome to accommodate the fact that our response scale is larger than the predictor scale. From the above MSEs we see that the MARS is the best model to predict the bike rental count, however both the non-linear models have more or less the same MSE (difference = 0.0814). While the worst performing model is LASSO. 
 
-windspeed, humidity, temp, atemp (lowwer in LASSO cuz of the interaction between it and temp) weather situation.
+From our EDA, we expected the variables related to the weather to be the most important when planning bike sharing infrastructure to support bike rental counts. Consequently we found the windspeed, humidity, temperature and weather situation to be the most influential predictors, as expected, with the largest coefficients when forecasting bike rental counts. 
+
+Therefore, this analysis tells us that the variables most consequential in estimating bike rentals are mostly weather related. People bike less when there's higher windspeed outside, high humidity outside while they bike more on warmer days. One should keep in mind that our range of temperature is not too high and a warmer day here means mostly a pleasant day. The city planning committee can set up public water dispensers around the city to circumvent to support bike riding even during high humid days, as a suggestion. This study thus will help better plan biking infrastructure in a city.
