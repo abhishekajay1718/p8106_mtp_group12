@@ -27,8 +27,6 @@ We are trying to use this dataset to see if temperature, weather and type of day
 
 ## Data Cleaning
 
-
-
 ## Github Site
 https://github.com/abhishekajay1718/p8106_mtp_group12
 
